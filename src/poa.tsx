@@ -2,11 +2,13 @@ import * as React from 'react';
 import { Switch, BrowserRouter, HashRouter, Redirect } from 'react-router-dom';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
-import { routerBoot, userRoutes } from './router-lib/router';
+import { routerBoot, userRoutes, Route } from './router-lib/router';
+import { Component } from './component';
 import { logger } from './logger-lib/logger';
 import { InternalPoaRoute } from './router-lib/route';
-import { bootstrapLocalization, PoaI18nOpts } from './i18next-lib/i18next';
-import { bootstrapState } from './state-lib/state';
+import { bootstrapLocalization, PoaI18nOpts, Translator } from './i18next-lib/i18next';
+import { bootstrapState, createAction, addMutator, addSideEffects } from './state-lib/state';
+import { Link } from './router-lib/link';
 
 const log = logger.get('poa-bootstrap');
 
@@ -78,3 +80,5 @@ export async function boot(config: PoaBootConfig) {
 
   await reactDomPromisify(<PoaApp config={config} />, config.react.htmlNode);
 }
+
+export { Route, Component, Translator, Link, createAction, addMutator, addSideEffects };
