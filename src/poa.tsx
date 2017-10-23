@@ -69,18 +69,12 @@ class PoaApp extends React.Component<{ config: PoaBootConfig }> {
 }
 
 export async function boot(config: PoaBootConfig) {
-  log.debug('DOM bootstraped');
   await routerBoot();
-  log.debug('Router bootstraped');
   await bootstrapLocalization(config.i18n || {});
-  log.debug('Localization bootstraped');
 
   if (config.state) {
     await bootstrapState(config.state.initial, config.state.actions, config.env);
-
-    log.debug('state bootstraped');
   }
 
-  log.debug('bootsraping..');
   await reactDomPromisify(<PoaApp config={config} />, config.react.htmlNode);
 }

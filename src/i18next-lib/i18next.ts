@@ -35,6 +35,5 @@ export const i18n = i18next;
 
 // tslint:disable-next-line:no-any
 export const translatorFuncCreator = (dicts: string[], t: any) => (value: string, opts?: {}) => {
-  log.debug(`translating ${value} with ns`, dicts);
   return t(value, { ns: [...dicts], ...opts });
 };

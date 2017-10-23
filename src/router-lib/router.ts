@@ -49,5 +49,5 @@ export function Route(config: PoaRouteDecorator) {
 }
 
 export async function routerBoot() {
-  log.debug('Router boot', userRoutes);
+  // TODO: boot ops
 }
