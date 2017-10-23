@@ -24,8 +24,6 @@ export function bootstrapLocalization(config: InitOptions) {
         component.prototype.t = translatorFuncCreator(component.prototype.tNamespaces || [], t);
       });
 
-      // tslint:disable-next-line:no-any
-      log.debug('initialized with options', (i18next as any).default.options);
       return resolve(t);
     });
   });
