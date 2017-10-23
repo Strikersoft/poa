@@ -1,25 +1,16 @@
 {
   "name": "poa",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "Poa is an opinionated react framework",
-  "keywords": [
-    "react",
-    "framework",
-    "state-managment",
-    "i18n",
-    "router",
-    "opinionated"
-  ],
+  "keywords": ["react", "framework", "state-managment", "i18n", "router", "opinionated"],
   "main": "dist/poa.umd.js",
   "module": "dist/poa.es5.js",
   "typings": "dist/types/poa.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "author": "Ostap Chervak <chervakostap@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/katsick/poa"
+    "url": "https://github.com/KatSick/poa.git"
   },
   "license": "MIT",
   "engines": {
@@ -28,7 +19,8 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc && rollup -c rollup.config.ts && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
+    "build":
+      "tsc && rollup -c rollup.config.ts && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc -w & rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -43,10 +35,7 @@
     "commitmsg": "validate-commit-msg"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write --print-width 100 --single-quote",
-      "git add"
-    ]
+    "{src,test}/**/*.ts": ["prettier --write --print-width 100 --single-quote", "git add"]
   },
   "config": {
     "commitizen": {
@@ -54,7 +43,8 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage":
+        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
@@ -62,15 +52,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,
@@ -103,7 +86,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^2.0.1",
-    "semantic-release": "^8.0.0",
+    "semantic-release": "^8.2.0",
     "ts-jest": "^21.0.0",
     "ts-node": "^3.0.6",
     "tslint": "^5.4.3",
