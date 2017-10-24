@@ -1,4 +1,4 @@
-import * as i18next from 'i18next';
+import i18next from 'i18next';
 import { TranslationFunction, InitOptions } from 'i18next';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';

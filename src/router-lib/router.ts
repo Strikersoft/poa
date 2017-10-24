@@ -13,7 +13,7 @@ export enum PoaRouteResolveStratery {
 export interface PoaRouteDecorator {
   path: string;
   exact?: boolean;
-  onActivate?: () => Promise<boolean | string>;
+  onActivate?: () => Promise<boolean | string | void>;
   // tslint:disable-next-line:no-any
   loading?: () => any;
   // tslint:disable-next-line:no-any

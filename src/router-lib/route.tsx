@@ -38,10 +38,6 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
     }
   }
 
-  componentWillUnmount() {
-    //
-  }
-
   render() {
     if (this.props.config.resolveStrategy === PoaRouteResolveStratery.nonwait) {
       if (this.redirectTo) {
@@ -65,10 +61,5 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
       default:
         return null;
     }
-    // if (this.mode === RouteMode.resolved) {
-    //   return <Route {...this.props} />;
-    // }
-
-    // return <Route {...this.props} />;
   }
 }

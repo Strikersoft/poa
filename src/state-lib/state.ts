@@ -47,10 +47,8 @@ export function addMutator<T extends ActionMessage>(
   actionCreator: ActionCreator<T>,
   target: PoaMutatorFunction<T>
 ): PoaMutatorFunction<T> {
-  log.debug('added mutator for', actionCreator);
   // tslint:disable-next-line:no-any
   return mutator(actionCreator, (actionMessage: T) => {
-    log.debug('executing mutator on', actionMessage);
     target(actionMessage, getStore());
   });
 }
@@ -86,7 +84,6 @@ export function addSideEffects<T extends ActionMessage>(
   target: PoaSideEffectFunction<T>
 ): OrchestratorFunction<T> {
   return orchestrator(actionCreator, actionMessage => {
-    log.debug('executing orchestrator on', actionMessage);
     return target(actionMessage, getActions(), getEnv());
   });
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Switch, BrowserRouter, HashRouter, Redirect } from 'react-router-dom';
+import { Switch, BrowserRouter, HashRouter, Redirect, MemoryRouter } from 'react-router-dom';
+import { History } from 'history';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
-import { routerBoot, userRoutes, Route } from './router-lib/router';
+import { routerBoot, userRoutes, Route, PoaRouteResolveStratery } from './router-lib/router';
 import { Component } from './component';
 import { logger } from './logger-lib/logger';
 import { InternalPoaRoute } from './router-lib/route';
@@ -14,7 +15,17 @@ const log = logger.get('poa-bootstrap');
 
 export interface PoaBootConfig {
   react: { htmlNode: HTMLElement };
-  router?: { hashRouter?: boolean; initialRoute?: string };
+  router: {
+    hashRouter?: boolean;
+    memoryRouter?: boolean;
+    memoryRouterProps?: {
+      initialEntries?: History.LocationDescriptor[];
+      initialIndex?: number;
+      getUserConfirmation?: (() => void);
+      keyLength?: number;
+    };
+    initialRoute?: string;
+  };
   i18n?: PoaI18nOpts;
   // TODO: add typing for state
   // tslint:disable-next-line:no-any
@@ -26,8 +37,8 @@ export interface PoaBootConfig {
 class PoaApp extends React.Component<{ config: PoaBootConfig }> {
   wasInitiallyRedirected: boolean = false;
 
-  performInitialRedirect(route: string) {
-    return <Redirect to={route} />;
+  componentDidCatch(error: any, info: any) {
+    log.error(error, info);
   }
 
   render() {
@@ -43,7 +54,7 @@ class PoaApp extends React.Component<{ config: PoaBootConfig }> {
           // tslint:disable-next-line:no-any
           render={(...args: any[]) => {
             // initial redirect
-            if (config.router && config.router.initialRoute && !this.wasInitiallyRedirected) {
+            if (config.router.initialRoute && !this.wasInitiallyRedirected) {
               this.wasInitiallyRedirected = true;
               return <Redirect exact={true} from="/" to={config.router.initialRoute} />;
             }
@@ -54,11 +65,19 @@ class PoaApp extends React.Component<{ config: PoaBootConfig }> {
       );
     });
 
-    if (config.router && config.router.hashRouter) {
+    if (config.router.hashRouter) {
       return (
         <HashRouter>
           <Switch>{routes}</Switch>
         </HashRouter>
+      );
+    }
+
+    if (config.router.memoryRouter) {
+      return (
+        <MemoryRouter {...config.router.memoryRouterProps}>
+          <Switch>{routes}</Switch>
+        </MemoryRouter>
       );
     }
 
@@ -81,4 +100,13 @@ export async function boot(config: PoaBootConfig) {
   await reactDomPromisify(<PoaApp config={config} />, config.react.htmlNode);
 }
 
-export { Route, Component, Translator, Link, createAction, addMutator, addSideEffects };
+export {
+  Route,
+  Component,
+  Translator,
+  Link,
+  createAction,
+  addMutator,
+  addSideEffects,
+  PoaRouteResolveStratery
+};
