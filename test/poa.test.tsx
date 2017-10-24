@@ -41,13 +41,6 @@ describe('Route() decorator', () => {
     expect(htmlNode.textContent).toBe('/');
   });
 
-  // loading() {
-  //   return 'swag';
-  // },
-  // error() {
-  //   return 'error';
-  // }
-
   it('triggers async onActivate hook', async () => {
     Route({
       path: '/route/onActive',
