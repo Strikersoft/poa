@@ -13,7 +13,7 @@ import {
   createAction,
   addMutator,
   addSideEffects,
-  initState
+  initAction
 } from './state-lib/state';
 import { Link } from './router-lib/link';
 
@@ -115,5 +115,5 @@ export {
   addMutator,
   addSideEffects,
   PoaRouteResolveStratery,
-  initState
+  initAction
 };

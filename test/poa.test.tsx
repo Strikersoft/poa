@@ -5,6 +5,7 @@ import {
   Link,
   createAction,
   addMutator,
+  initAction,
   addSideEffects,
   PoaRouteResolveStratery
 } from '../src/poa';
@@ -197,6 +198,7 @@ describe('State managment', () => {
     });
     expect(htmlNode.textContent).toBe(initialState.a.toString());
   });
+
   it('updates component on mutations', async () => {
     const htmlNode = document.createElement('div');
     const initialState = { a: 1 };
@@ -229,6 +231,7 @@ describe('State managment', () => {
     action1(2);
     expect(getStore().a).toBe(2);
   });
+
   it('triggers side effects', done => {
     const htmlNode = document.createElement('div');
     const initialState = { a: 1 };
@@ -263,5 +266,35 @@ describe('State managment', () => {
     });
 
     action1(2);
+  });
+
+  it('dispatches init event on load', async cb => {
+    const htmlNode = document.createElement('div');
+    const initialState = { a: 1 };
+    const TestComponent = Component()(
+      class TestComponent extends React.Component {
+        store: typeof initialState;
+        render() {
+          return <div>{this.store.a}</div>;
+        }
+      }
+    );
+
+    Route({ path: '/store/initAction' })(() => <TestComponent />);
+
+    addSideEffects(initAction, () => {
+      cb();
+    });
+
+    await boot({
+      react: { htmlNode },
+      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/store/initAction'] } },
+      state: {
+        initial: initialState,
+        actions: {}
+      }
+    });
+
+    expect(htmlNode.textContent).toBe(initialState.a.toString());
   });
 });
