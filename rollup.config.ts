@@ -17,16 +17,7 @@ export default {
   ],
   sourcemap: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [
-    'react',
-    'react-dom',
-    'react-router-dom',
-    'mobx',
-    'mobx-react',
-    'satcheljs',
-    'js-logger',
-    'i18next'
-  ],
+  external: ['react', 'react-dom'],
   watch: {
     include: 'compiled/**'
   },
