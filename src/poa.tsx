@@ -8,7 +8,13 @@ import { Component } from './component';
 import { logger } from './logger-lib/logger';
 import { InternalPoaRoute } from './router-lib/route';
 import { bootstrapLocalization, PoaI18nOpts, Translator } from './i18next-lib/i18next';
-import { bootstrapState, createAction, addMutator, addSideEffects } from './state-lib/state';
+import {
+  bootstrapState,
+  createAction,
+  addMutator,
+  addSideEffects,
+  initState
+} from './state-lib/state';
 import { Link } from './router-lib/link';
 
 const log = logger.get('poa-bootstrap');
@@ -108,5 +114,6 @@ export {
   createAction,
   addMutator,
   addSideEffects,
-  PoaRouteResolveStratery
+  PoaRouteResolveStratery,
+  initState
 };

@@ -88,6 +88,8 @@ export function addSideEffects<T extends ActionMessage>(
   });
 }
 
+export const initAction = createAction('@@INIT', () => ({}));
+
 // tslint:disable-next-line:no-any
 export async function bootstrapState(initialState: {}, actions: typeof internalActions, env?: any) {
   if (env) {
@@ -101,4 +103,6 @@ export async function bootstrapState(initialState: {}, actions: typeof internalA
     component.prototype.store = getStore();
     component.prototype.actions = getActions();
   });
+
+  initAction();
 }
