@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 import { TranslationFunction, InitOptions } from 'i18next';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';
@@ -15,7 +15,7 @@ export interface Translator extends TranslationFunction {}
 export function bootstrapLocalization(config: InitOptions) {
   return new Promise((resolve, reject) => {
     // tslint:disable-next-line:no-any
-    i18next.init(config, (error: any, t: TranslationFunction) => {
+    (i18next as any).default.init(config, (error: any, t: TranslationFunction) => {
       if (error) {
         return reject(error);
       }
