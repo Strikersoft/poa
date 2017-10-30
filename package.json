@@ -63,7 +63,12 @@
       }
     },
     "collectCoverage": true,
-    "mapCoverage": true
+    "mapCoverage": true,
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    }
   },
   "devDependencies": {
     "@types/jest": "^21.1.0",
