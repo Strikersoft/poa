@@ -1,4 +1,4 @@
-import * as Logger from 'js-logger';
+import Logger from 'js-logger';
 import { ILogger } from '../types/logger';
 
 Logger.useDefaults();
