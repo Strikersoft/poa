@@ -13,7 +13,7 @@ export enum PoaRouteResolveStratery {
 export interface PoaRouteDecorator {
   path: string;
   exact?: boolean;
-  onActivate?: () => Promise<boolean | string | void>;
+  onActivate?: (actions: {}) => Promise<boolean | string | void>;
   // tslint:disable-next-line:no-any
   loading?: () => any;
   // tslint:disable-next-line:no-any
@@ -27,7 +27,7 @@ export interface PoaRouteConfig extends PoaRouteDecorator {
   component: any;
 }
 
-export const userRoutes: PoaRouteConfig[] = [];
+export let userRoutes: PoaRouteConfig[] = [];
 
 export function Route(config: PoaRouteDecorator) {
   // tslint:disable-next-line:no-any
@@ -50,4 +50,8 @@ export function Route(config: PoaRouteDecorator) {
 
 export async function routerBoot() {
   // TODO: boot ops
+}
+
+export function resetRouterGlobals() {
+  userRoutes = [];
 }

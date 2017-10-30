@@ -21,8 +21,8 @@ let store: any;
 let environment: any = {};
 
 export function createInitialStore<InitialState>(state: InitialState) {
-  store = satchelCreateStore<InitialState>('poaStore', state)();
-  return store;
+  setStore(satchelCreateStore<InitialState>('poaStore', state)());
+  return getStore();
 }
 
 // tslint:disable-next-line:no-any
@@ -37,6 +37,11 @@ function getEnv() {
 export function getStore() {
   return store;
 }
+
+function setStore(s: typeof store) {
+  store = s;
+}
+
 // tslint:disable-next-line:no-any
 export declare type PoaMutatorFunction<T extends ActionMessage> = (
   actionMessage: T,
@@ -60,7 +65,7 @@ function setActions(actions: typeof internalActions) {
   internalActions = actions;
 }
 
-function getActions() {
+export function getActions() {
   return internalActions;
 }
 
@@ -105,4 +110,10 @@ export async function bootstrapState(initialState: {}, actions: typeof internalA
   });
 
   initAction();
+}
+
+export function resetStateGlobals() {
+  setActions([]);
+  setStore({});
+  setEnv({});
 }

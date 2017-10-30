@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { boot, Route } from '../src/poa';
+import { boot, Route, resetPoaGlobals } from '../src/poa';
 import {
   Component,
   Link,
@@ -7,61 +7,65 @@ import {
   addMutator,
   initAction,
   addSideEffects,
+  testBoot,
   PoaRouteResolveStratery
 } from '../src/poa';
 import * as ReactDOM from 'react-dom';
 import { getStore } from '../src/state-lib/state';
 
-// TODO: introduce Poa test mode with globals reset for Route, Component and unmounting
+(global as any).requestAnimationFrame = function(callback) {
+  setTimeout(callback, 0);
+}
 
-beforeAll(() => {
-  (global as any).requestAnimationFrame = function(callback) {
-    setTimeout(callback, 0);
-  };
+beforeEach(() => {
+  resetPoaGlobals();
 });
 
 describe('boot() method', () => {
   it('boots poa correctly', async () => {
-    await boot({
-      react: { htmlNode: document.createElement('div') },
-      router: { memoryRouter: true }
-    });
-  });
+    await testBoot();
 });
 
 describe('Route() decorator', () => {
   it('creates route it renders', async () => {
     Route({ path: '/' })(() => <div>/</div>);
 
-    const htmlNode = document.createElement('div');
+    const htmlNode = await testBoot();
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/'] } }
-    });
     expect(htmlNode.textContent).toBe('/');
   });
 
-  it('triggers async onActivate hook', async () => {
+  it('triggers async onActivate hook', async cb => {
     Route({
-      path: '/route/onActive',
+      path: '/',
       async onActivate() {
+        cb();
         return true;
       }
     })(() => <div>/</div>);
 
-    const htmlNode = document.createElement('div');
+    const htmlNode = await testBoot();
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/route/onActive'] } }
-    });
+    expect(htmlNode.textContent).toBe('/');
+  });
+
+  it('pass actions into onActivate hook', async cb => {
+    Route({
+      path: '/',
+      async onActivate(actions) {
+        cb();
+        expect(actions).toBeDefined();
+        return true;
+      }
+    })(() => <div>/</div>);
+
+    const htmlNode = await testBoot();
     expect(htmlNode.textContent).toBe('/');
   });
 
   it('triggers loading tempalte with onActivate hook', async () => {
     Route({
-      path: '/route/onActiveWithLoading',
+      path: '/',
       async onActivate() {
         function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
@@ -75,21 +79,14 @@ describe('Route() decorator', () => {
       }
     })(() => <div>/</div>);
 
-    const htmlNode = document.createElement('div');
+    const htmlNode = await testBoot();
 
-    await boot({
-      react: { htmlNode },
-      router: {
-        memoryRouter: true,
-        memoryRouterProps: { initialEntries: ['/route/onActiveWithLoading'] }
-      }
-    });
     expect(htmlNode.textContent).toBe('swag');
   });
 
   it('triggers error template with onActivate hook', async () => {
     Route({
-      path: '/route/onActiveWithError',
+      path: '/',
       async onActivate() {
         throw new Error('a');
       },
@@ -101,41 +98,28 @@ describe('Route() decorator', () => {
       }
     })(() => <div>/</div>);
 
-    const htmlNode = document.createElement('div');
-
-    await boot({
-      react: { htmlNode },
-      router: {
-        memoryRouter: true,
-        memoryRouterProps: { initialEntries: ['/route/onActiveWithError'] }
-      }
-    });
+    const htmlNode = await testBoot();
     expect(htmlNode.textContent).toBe('error');
   });
 
   it('expect resolveStrategy mode nonwait', async () => {
     Route({
-      path: '/route/nonwait',
+      path: '/',
       resolveStrategy: PoaRouteResolveStratery.nonwait
     })(() => <div>/</div>);
 
-    const htmlNode = document.createElement('div');
-
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/route/nonwait'] } }
-    });
+    const htmlNode = await testBoot();
     expect(htmlNode.textContent).toBe('/');
   });
 
   it('renders correct link', async () => {
-    Route({ path: '/link' })(() => <Link to="/" />);
+    Route({ path: '/' })(() => <Link to="/" />);
 
     const htmlNode = document.createElement('div');
 
     await boot({
       react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/link'] } }
+      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/'] } }
     });
 
     expect(htmlNode.textContent).toBe('');
@@ -144,14 +128,9 @@ describe('Route() decorator', () => {
 
   it('warn on incorrect link', async () => {
     process.env.NODE_ENV = 'development';
-    Route({ path: '/link1' })(() => <Link to="/123" />);
+    Route({ path: '/' })(() => <Link to="/123" />);
 
-    const htmlNode = document.createElement('div');
-
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/link1'] } }
-    });
+    const htmlNode = await testBoot();
 
     expect(htmlNode.textContent).toBe('');
     expect(htmlNode.getElementsByTagName('a')[0].tagName).toBe('A');
@@ -161,24 +140,18 @@ describe('Route() decorator', () => {
 
 describe('Component() decorator', () => {
   it('creates component and it renders', async () => {
-    const htmlNode = document.createElement('div');
     const TestComponent = Component()(() => <div>component</div>);
-    Route({ path: '/component' })(() => <TestComponent />);
+    Route({ path: '/' })(() => <TestComponent />);
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/component'] } }
-    });
+    const htmlNode = await testBoot();
     expect(htmlNode.textContent).toBe('component');
   });
 });
 
 describe('State managment', () => {
   it('creates correct initial state and inject store', async () => {
-    const htmlNode = document.createElement('div');
-    const initialState = { a: 1 };
     const TestComponent = Component()(
-      class TestComponent extends React.Component {
+      class extends React.Component {
         store: typeof initialState;
         render() {
           return <div>{this.store.a}</div>;
@@ -186,21 +159,14 @@ describe('State managment', () => {
       }
     );
 
-    Route({ path: '/store' })(() => <TestComponent />);
+    Route({ path: '/' })(() => <TestComponent />);
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/store'] } },
-      state: {
-        initial: initialState,
-        actions: {}
-      }
-    });
+    const initialState = { a: 1 };
+    const htmlNode = await testBoot({ initial: initialState, actions: {} });
     expect(htmlNode.textContent).toBe(initialState.a.toString());
   });
 
   it('updates component on mutations', async () => {
-    const htmlNode = document.createElement('div');
     const initialState = { a: 1 };
     const action1 = createAction('change_a', (a: number) => ({ a }));
 
@@ -217,23 +183,15 @@ describe('State managment', () => {
       }
     );
 
-    Route({ path: '/store1' })(() => <TestComponent />);
+    Route({ path: '/' })(() => <TestComponent />);
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/store1'] } },
-      state: {
-        initial: initialState,
-        actions: {}
-      }
-    });
+    const htmlNode = await testBoot({ initial: initialState, actions: {} });
 
     action1(2);
     expect(getStore().a).toBe(2);
   });
 
-  it('triggers side effects', done => {
-    const htmlNode = document.createElement('div');
+  it('triggers side effects', async (done) => {
     const initialState = { a: 1 };
     const action1 = createAction('change_b', (a: number) => ({ a }));
 
@@ -245,25 +203,18 @@ describe('State managment', () => {
       done();
     });
 
-    const TestComponent = Component()(
-      class TestComponent extends React.Component {
-        store: typeof initialState;
-        render() {
-          return <div>{this.store.a}</div>;
-        }
+    class TestComponent extends React.Component {
+      store: typeof initialState;
+      render() {
+        return <div>{this.store.a}</div>;
       }
-    );
+    }
 
-    Route({ path: '/store2' })(() => <TestComponent />);
+    const Comp = Component()(TestComponent);
 
-    boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/store2'] } },
-      state: {
-        initial: initialState,
-        actions: {}
-      }
-    });
+    Route({ path: '/' })(() => <Comp />);
+
+    const htmlNode = await testBoot({ initial: initialState, actions: {} });
 
     action1(2);
   });
@@ -280,7 +231,7 @@ describe('State managment', () => {
       }
     );
 
-    Route({ path: '/store/initAction' })(() => <TestComponent />);
+    Route({ path: '/' })(() => <TestComponent />);
 
     addSideEffects(initAction, () => {
       cb();
@@ -288,7 +239,7 @@ describe('State managment', () => {
 
     await boot({
       react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/store/initAction'] } },
+      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/'] } },
       state: {
         initial: initialState,
         actions: {}

@@ -2,7 +2,11 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
 import { PoaRouteConfig, PoaRouteResolveStratery } from './router';
+import { getActions } from '../state-lib/state';
 import { observer } from 'mobx-react';
+import { logger } from '../logger-lib/logger';
+
+const log = logger.get('poa-route');
 
 export interface PoaRouteProps extends RouteProps {
   config: PoaRouteConfig;
@@ -25,7 +29,7 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
     if (this.props.config.onActivate) {
       this.mode = RouteMode.loading;
       try {
-        const result = await this.props.config.onActivate();
+        const result = await this.props.config.onActivate(getActions());
 
         if (typeof result === 'string') {
           this.redirectTo = result;

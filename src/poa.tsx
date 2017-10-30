@@ -3,7 +3,13 @@ import { Switch, BrowserRouter, HashRouter, Redirect, MemoryRouter } from 'react
 import { History } from 'history';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
-import { routerBoot, userRoutes, Route, PoaRouteResolveStratery } from './router-lib/router';
+import {
+  routerBoot,
+  userRoutes,
+  Route,
+  PoaRouteResolveStratery,
+  resetRouterGlobals
+} from './router-lib/router';
 import { Component } from './component';
 import { logger } from './logger-lib/logger';
 import { InternalPoaRoute } from './router-lib/route';
@@ -16,6 +22,8 @@ import {
   initAction
 } from './state-lib/state';
 import { Link } from './router-lib/link';
+import { resetStateGlobals } from './state-lib/state';
+import { PoaRouteConfig } from './router-lib/router';
 
 const log = logger.get('poa-bootstrap');
 
@@ -106,6 +114,24 @@ export async function boot(config: PoaBootConfig) {
   await reactDomPromisify(<PoaApp config={config} />, config.react.htmlNode);
 }
 
+// TODO: use correct state interface not on demand
+export async function testBoot(state?: { initial: any; actions: any }) {
+  const htmlNode = document.createElement('div');
+
+  await boot(
+    Object.assign({
+      react: { htmlNode },
+      router: {
+        memoryRouter: true,
+        memoryRouterProps: { initialEntries: ['/'] }
+      },
+      state: state
+    })
+  );
+
+  return htmlNode;
+}
+
 export {
   Route,
   Component,
@@ -117,3 +143,8 @@ export {
   PoaRouteResolveStratery,
   initAction
 };
+
+export function resetPoaGlobals() {
+  resetRouterGlobals();
+  resetStateGlobals();
+}
