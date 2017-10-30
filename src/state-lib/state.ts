@@ -4,6 +4,9 @@ import {
   mutator,
   action,
   orchestrator,
+  DispatchFunction,
+  Middleware,
+  applyMiddleware,
   ActionCreator,
   OrchestratorFunction,
   ActionMessage
@@ -94,6 +97,7 @@ export function addSideEffects<T extends ActionMessage>(
 }
 
 export const initAction = createAction('@@INIT', () => ({}));
+const middlewaresToAdd: PoaMiddleware[] = [];
 
 // tslint:disable-next-line:no-any
 export async function bootstrapState(initialState: {}, actions: typeof internalActions, env?: any) {
@@ -109,6 +113,8 @@ export async function bootstrapState(initialState: {}, actions: typeof internalA
     component.prototype.actions = getActions();
   });
 
+  middlewaresToAdd.forEach(m => applyMiddleware(m(getStore())));
+
   initAction();
 }
 
@@ -116,4 +122,10 @@ export function resetStateGlobals() {
   setActions([]);
   setStore({});
   setEnv({});
+}
+
+export declare type PoaMiddleware = (store: any) => Middleware;
+
+export function addMiddleware(...middlewares: PoaMiddleware[]) {
+  middlewaresToAdd.push(...middlewares);
 }

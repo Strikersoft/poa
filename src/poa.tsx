@@ -22,7 +22,7 @@ import {
   initAction
 } from './state-lib/state';
 import { Link } from './router-lib/link';
-import { resetStateGlobals } from './state-lib/state';
+import { resetStateGlobals, addMiddleware } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
 
 const log = logger.get('poa-bootstrap');
@@ -137,6 +137,7 @@ export {
   Component,
   Translator,
   Link,
+  addMiddleware,
   createAction,
   addMutator,
   addSideEffects,

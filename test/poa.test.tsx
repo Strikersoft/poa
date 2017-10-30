@@ -11,7 +11,7 @@ import {
   PoaRouteResolveStratery
 } from '../src/poa';
 import * as ReactDOM from 'react-dom';
-import { getStore } from '../src/state-lib/state';
+import { getStore, addMiddleware } from '../src/state-lib/state';
 
 (global as any).requestAnimationFrame = function(callback) {
   setTimeout(callback, 0);
@@ -220,7 +220,6 @@ describe('State managment', () => {
   });
 
   it('dispatches init event on load', async cb => {
-    const htmlNode = document.createElement('div');
     const initialState = { a: 1 };
     const TestComponent = Component()(
       class TestComponent extends React.Component {
@@ -237,15 +236,33 @@ describe('State managment', () => {
       cb();
     });
 
-    await boot({
-      react: { htmlNode },
-      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/'] } },
-      state: {
-        initial: initialState,
-        actions: {}
-      }
-    });
+    const htmlNode = await testBoot({ initial: initialState, actions: {} });
 
     expect(htmlNode.textContent).toBe(initialState.a.toString());
   });
+
+  it('assigns middlewares', async (cb) => {
+    const initialState = { a: 1 };
+    const TestComponent = Component()(
+      class TestComponent extends React.Component {
+        store: typeof initialState;
+        render() {
+          return <div>{this.store.a}</div>;
+        }
+      }
+    );
+
+    Route({ path: '/' })(() => <TestComponent />);
+
+    addMiddleware((store) => (next, action) => {
+      expect(store).toEqual(initialState);
+      cb();
+      next(action)
+    });
+
+    const htmlNode = await testBoot({ initial: initialState, actions: {} });
+
+    expect(htmlNode.textContent).toBe(initialState.a.toString());
+
+  })
 });
