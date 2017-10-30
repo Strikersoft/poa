@@ -1,5 +1,5 @@
 # Poa framework
-[![Build Status](https://travis-ci.org/KatSick/poa.svg?branch=master)](https://travis-ci.org/KatSick/poa)
-[![Coverage Status](https://coveralls.io/repos/github/KatSick/poa/badge.svg?branch=master)](https://coveralls.io/github/KatSick/poa?branch=master)
+[![Build Status](https://travis-ci.org/Strikersoft/poa.svg?branch=master)](https://travis-ci.org/Strikersoft/poa)
+[![Coverage Status](https://coveralls.io/repos/github/Strikersoft/poa/badge.svg?branch=master)](https://coveralls.io/github/Strikersoft/poa?branch=master)
 
-Under experiment. Strictly recommend to be scary when open source code
+Under experiment.
