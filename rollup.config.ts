@@ -13,7 +13,7 @@ export default {
   output: [{ file: pkg.main, format: 'es' }],
   sourcemap: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: ['react', 'react-dom'],
+  external: Object.keys(pkg.dependencies),
   watch: {
     include: 'compiled/**'
   },
