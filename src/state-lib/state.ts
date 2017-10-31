@@ -51,7 +51,7 @@ function setStore(s: typeof store) {
 export declare type PoaMutatorFunction<T extends ActionMessage> = (
   actionMessage: T,
   opts: {
-    store: {};
+    store: any;
   }
 ) => void;
 
@@ -84,9 +84,9 @@ export function createAction<
 }
 
 export interface PoaSideEffectOpts {
-  actions: {};
+  actions: any;
   router: History;
-  env: {};
+  env: any;
 }
 
 export declare type PoaSideEffectFunction<T extends ActionMessage> = (
