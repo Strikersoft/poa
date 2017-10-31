@@ -170,7 +170,7 @@ describe('State managment', () => {
     const initialState = { a: 1 };
     const action1 = createAction('change_a', (a: number) => ({ a }));
 
-    addMutator(action1, (payload, store: typeof initialState) => {
+    addMutator(action1, (payload, { store }: { store: typeof initialState}) => {
       store.a = payload.a;
     });
 

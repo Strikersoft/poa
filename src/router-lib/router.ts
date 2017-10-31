@@ -1,6 +1,8 @@
 import { logger } from '../logger-lib/logger';
 import { observer } from 'mobx-react';
 import { addComponentToRegistry } from '../components-registry';
+import { createHashHistory, createBrowserHistory, History } from 'history';
+import { PoaBootConfig } from '../poa.interfaces';
 export { Link } from './link';
 
 const log = logger.get('poa-router');
@@ -48,8 +50,20 @@ export function Route(config: PoaRouteDecorator) {
   };
 }
 
-export async function routerBoot() {
-  // TODO: boot ops
+let browserHistoryType: History;
+
+export function getHistory() {
+  return browserHistoryType;
+}
+
+export async function routerBoot(config: PoaBootConfig) {
+  if (config.router.hashRouter) {
+    browserHistoryType = createHashHistory();
+  } else {
+    browserHistoryType = createBrowserHistory();
+  }
+
+  return browserHistoryType;
 }
 
 export function resetRouterGlobals() {

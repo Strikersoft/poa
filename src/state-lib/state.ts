@@ -11,8 +11,10 @@ import {
   OrchestratorFunction,
   ActionMessage
 } from 'satcheljs';
+import { History } from 'history';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';
+import { getHistory } from '../router-lib/router';
 
 useStrict(false);
 
@@ -48,7 +50,9 @@ function setStore(s: typeof store) {
 // tslint:disable-next-line:no-any
 export declare type PoaMutatorFunction<T extends ActionMessage> = (
   actionMessage: T,
-  store: any
+  opts: {
+    store: {};
+  }
 ) => void;
 
 export function addMutator<T extends ActionMessage>(
@@ -57,7 +61,7 @@ export function addMutator<T extends ActionMessage>(
 ): PoaMutatorFunction<T> {
   // tslint:disable-next-line:no-any
   return mutator(actionCreator, (actionMessage: T) => {
-    target(actionMessage, getStore());
+    target(actionMessage, { store: getStore() });
   });
 }
 
@@ -79,12 +83,15 @@ export function createAction<
   return action(actionType, target);
 }
 
+export interface PoaSideEffectOpts {
+  actions: {};
+  router: History;
+  env: {};
+}
+
 export declare type PoaSideEffectFunction<T extends ActionMessage> = (
   actionMessage: T,
-  // tslint:disable-next-line:no-any
-  actions: any,
-  // tslint:disable-next-line:no-any
-  environment: any
+  opts: PoaSideEffectOpts
 ) => void;
 
 export function addSideEffects<T extends ActionMessage>(
@@ -92,7 +99,7 @@ export function addSideEffects<T extends ActionMessage>(
   target: PoaSideEffectFunction<T>
 ): OrchestratorFunction<T> {
   return orchestrator(actionCreator, actionMessage => {
-    return target(actionMessage, getActions(), getEnv());
+    return target(actionMessage, { actions: getActions(), router: getHistory(), env: getEnv() });
   });
 }
 

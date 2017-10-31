@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Switch, BrowserRouter, HashRouter, Redirect, MemoryRouter } from 'react-router-dom';
-import { History } from 'history';
+import { Switch, Router, Redirect, MemoryRouter } from 'react-router';
+import { createBrowserHistory, createHashHistory, History } from 'history';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
 import {
@@ -24,31 +24,11 @@ import {
 import { Link } from './router-lib/link';
 import { resetStateGlobals, addMiddleware } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
+import { PoaBootConfig } from './poa.interfaces';
 
 const log = logger.get('poa-bootstrap');
 
-export interface PoaBootConfig {
-  react: { htmlNode: HTMLElement };
-  router: {
-    hashRouter?: boolean;
-    memoryRouter?: boolean;
-    memoryRouterProps?: {
-      initialEntries?: History.LocationDescriptor[];
-      initialIndex?: number;
-      getUserConfirmation?: (() => void);
-      keyLength?: number;
-    };
-    initialRoute?: string;
-  };
-  i18n?: PoaI18nOpts;
-  // TODO: add typing for state
-  // tslint:disable-next-line:no-any
-  state?: { initial: {}; actions: any };
-  // tslint:disable-next-line:no-any
-  env?: any;
-}
-
-class PoaApp extends React.Component<{ config: PoaBootConfig }> {
+class PoaApp extends React.Component<{ config: PoaBootConfig; history: History }> {
   wasInitiallyRedirected: boolean = false;
 
   componentDidCatch(error: any, info: any) {
@@ -79,14 +59,6 @@ class PoaApp extends React.Component<{ config: PoaBootConfig }> {
       );
     });
 
-    if (config.router.hashRouter) {
-      return (
-        <HashRouter>
-          <Switch>{routes}</Switch>
-        </HashRouter>
-      );
-    }
-
     if (config.router.memoryRouter) {
       return (
         <MemoryRouter {...config.router.memoryRouterProps}>
@@ -96,22 +68,25 @@ class PoaApp extends React.Component<{ config: PoaBootConfig }> {
     }
 
     return (
-      <BrowserRouter>
+      <Router history={this.props.history}>
         <Switch>{routes}</Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 export async function boot(config: PoaBootConfig) {
-  await routerBoot();
+  const browserHistoryType = await routerBoot(config);
   await bootstrapLocalization(config.i18n || {});
 
   if (config.state) {
     await bootstrapState(config.state.initial, config.state.actions, config.env);
   }
 
-  await reactDomPromisify(<PoaApp config={config} />, config.react.htmlNode);
+  await reactDomPromisify(
+    <PoaApp config={config} history={browserHistoryType} />,
+    config.react.htmlNode
+  );
 }
 
 // TODO: use correct state interface not on demand

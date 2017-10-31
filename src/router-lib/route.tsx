@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observable } from 'mobx';
-import { Route, RouteProps, Redirect } from 'react-router-dom';
+import { Route, RouteProps, Redirect } from 'react-router';
 import { PoaRouteConfig, PoaRouteResolveStratery } from './router';
 import { getActions } from '../state-lib/state';
 import { observer } from 'mobx-react';
