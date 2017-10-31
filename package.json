@@ -120,6 +120,7 @@
     "@types/react": "^16.0.9",
     "@types/react-dom": "^16.0.0",
     "@types/react-router": "^4.0.16",
+    "@types/react-router-dom": "^4.2.0",
     "i18next": "^10.0.3",
     "js-logger": "^1.4.1",
     "mobx": "^2.7.0",
