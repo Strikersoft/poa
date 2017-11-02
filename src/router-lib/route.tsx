@@ -29,7 +29,10 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
     if (this.props.config.onActivate) {
       this.mode = RouteMode.loading;
       try {
-        const result = await this.props.config.onActivate(getActions());
+        const result = await this.props.config.onActivate({
+          actions: getActions(),
+          location: this.props.location
+        });
 
         if (typeof result === 'string') {
           this.redirectTo = result;
