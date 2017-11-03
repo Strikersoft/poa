@@ -10,7 +10,7 @@ import {
   ActionCreator,
   OrchestratorFunction,
   ActionMessage
-} from 'satcheljs';
+} from './satchel';
 import { History } from 'history';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';
