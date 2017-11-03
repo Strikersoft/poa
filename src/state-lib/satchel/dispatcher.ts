@@ -18,7 +18,7 @@ export function dispatch(actionMessage: ActionMessage) {
   }
 
   let dispatchWithMiddleware = getGlobalContext().dispatchWithMiddleware || finalDispatch;
-  dispatchWithMiddleware(actionMessage);
+  return dispatchWithMiddleware(actionMessage);
 }
 
 export function finalDispatch(actionMessage: ActionMessage): void | Promise<void> {

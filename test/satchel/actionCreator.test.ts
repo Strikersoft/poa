@@ -1,10 +1,12 @@
 import {
   action,
+  asyncAction,
   actionCreator,
   getPrivateActionId
 } from '../../src/state-lib/satchel/actionCreator';
 import * as createActionId from '../../src/state-lib/satchel/createActionId';
 import * as dispatcher from '../../src/state-lib/satchel/dispatcher';
+import orchestrator from '../../src/state-lib/satchel/orchestrator';
 
 describe('actionCreator', () => {
   it('returns the created action message', () => {
@@ -95,5 +97,43 @@ describe('action', () => {
 
     // Assert
     expect(dispatcher.dispatch).toHaveBeenCalledWith(actionMessage);
+  });
+
+  it('dispatches async action', async () => {
+    // Arrange
+    let actionMessage = {};
+    const testAction = asyncAction('testAction', () => actionMessage);
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    let data: number;
+
+    orchestrator(testAction, async payload => {
+      await sleep(1);
+      expect(payload).toBe(actionMessage);
+      data = 1;
+    });
+
+    // Act
+    await testAction();
+
+    // Assert
+    expect(data).toEqual(1);
+  });
+
+  it('return error on orchestrator', async done => {
+    // Arrange
+    let actionMessage = {};
+    const testAction = asyncAction('testAction', () => actionMessage);
+
+    orchestrator(testAction, async payload => {
+      throw new Error('');
+    });
+
+    // Act
+    try {
+      await testAction();
+      fail('it should throw an error');
+    } catch (e) {
+      done();
+    }
   });
 });

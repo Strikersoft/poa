@@ -17,10 +17,22 @@ export function action<
   return createActionCreator(actionType, true, target);
 }
 
+export function asyncAction<
+  T extends ActionMessage = {},
+  TActionCreator extends ActionCreator<T> = () => T
+>(actionType: string, target?: TActionCreator): TActionCreator {
+  return createActionCreator(actionType, true, target, true);
+}
+
+async function asyncDispatch(actionMessage: ActionMessage) {
+  return await dispatch(actionMessage);
+}
+
 function createActionCreator<T extends ActionMessage, TActionCreator extends ActionCreator<T>>(
   actionType: string,
   shouldDispatch: boolean,
-  target?: TActionCreator
+  target?: TActionCreator,
+  async?: boolean
 ): TActionCreator {
   let actionId = createActionId();
 
@@ -36,6 +48,10 @@ function createActionCreator<T extends ActionMessage, TActionCreator extends Act
     // Stamp the action message with the type and the private ID
     actionMessage.type = actionType;
     setPrivateActionId(actionMessage, actionId);
+
+    if (shouldDispatch && async) {
+      return asyncDispatch(actionMessage);
+    }
 
     // Dispatch if necessary
     if (shouldDispatch) {
