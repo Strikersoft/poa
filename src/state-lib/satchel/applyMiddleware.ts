@@ -4,8 +4,8 @@ import { finalDispatch } from './dispatcher';
 import { getGlobalContext } from './globalContext';
 
 export default function applyMiddleware(...middleware: Middleware[]) {
-  var next: DispatchFunction = finalDispatch;
-  for (var i = middleware.length - 1; i >= 0; i--) {
+  let next: DispatchFunction = finalDispatch;
+  for (let i = middleware.length - 1; i >= 0; i--) {
     next = applyNextMiddleware(middleware[i], next);
   }
 

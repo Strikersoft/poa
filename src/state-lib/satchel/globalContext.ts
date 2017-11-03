@@ -2,8 +2,6 @@ import { map, ObservableMap } from 'mobx';
 import ActionMessage from './interfaces/ActionMessage';
 import DispatchFunction from './interfaces/DispatchFunction';
 import Subscriber from './interfaces/Subscriber';
-import ActionContext from './legacy/ActionContext';
-import ActionFunction from './legacy/ActionFunction';
 
 const schemaVersion = 3;
 
@@ -13,51 +11,38 @@ export interface GlobalContext {
   rootStore: ObservableMap<any>;
   nextActionId: number;
   subscriptions: { [key: string]: Subscriber<ActionMessage>[] };
-  dispatchWithMiddleware: DispatchFunction;
+  dispatchWithMiddleware: DispatchFunction | null;
   inMutator: boolean;
-
-  // Legacy properties
-  legacyInDispatch: number;
-  legacyDispatchWithMiddleware: (
-    action: ActionFunction,
-    actionType: string,
-    args: IArguments,
-    actionContext: ActionContext
-  ) => Promise<any> | void;
-  legacyTestMode: boolean;
 }
 
 declare var global: {
-  __satchelGlobalContext: GlobalContext;
+  __poaSatchelGlobalContext: GlobalContext;
 };
 
 // A reset global context function to be used INTERNALLY by SatchelJS tests and for initialization ONLY
 export function __resetGlobalContext() {
-  global.__satchelGlobalContext = {
+  global.__poaSatchelGlobalContext = {
     schemaVersion: schemaVersion,
     rootStore: map({}),
     nextActionId: 0,
     subscriptions: {},
     dispatchWithMiddleware: null,
-    inMutator: false,
-    legacyInDispatch: 0,
-    legacyDispatchWithMiddleware: null,
-    legacyTestMode: false
+    inMutator: false
   };
 }
 
 export function ensureGlobalContextSchemaVersion() {
-  if (schemaVersion != global.__satchelGlobalContext.schemaVersion) {
+  if (schemaVersion !== global.__poaSatchelGlobalContext.schemaVersion) {
     throw new Error('Detected incompatible SatchelJS versions loaded.');
   }
 }
 
 export function getGlobalContext() {
-  return global.__satchelGlobalContext;
+  return global.__poaSatchelGlobalContext;
 }
 
 // Side Effects: actually initialize the global context if it is undefined
-if (!global.__satchelGlobalContext) {
+if (!global.__poaSatchelGlobalContext) {
   __resetGlobalContext();
 } else {
   ensureGlobalContextSchemaVersion();

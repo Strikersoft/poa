@@ -7,20 +7,20 @@ export function actionCreator<
   T extends ActionMessage = {},
   TActionCreator extends ActionCreator<T> = () => T
 >(actionType: string, target?: TActionCreator): TActionCreator {
-  return createActionCreator(actionType, target, false);
+  return createActionCreator(actionType, false, target);
 }
 
 export function action<
   T extends ActionMessage = {},
   TActionCreator extends ActionCreator<T> = () => T
 >(actionType: string, target?: TActionCreator): TActionCreator {
-  return createActionCreator(actionType, target, true);
+  return createActionCreator(actionType, true, target);
 }
 
 function createActionCreator<T extends ActionMessage, TActionCreator extends ActionCreator<T>>(
   actionType: string,
-  target: TActionCreator,
-  shouldDispatch: boolean
+  shouldDispatch: boolean,
+  target?: TActionCreator
 ): TActionCreator {
   let actionId = createActionId();
 

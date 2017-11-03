@@ -36,7 +36,7 @@ export function finalDispatch(actionMessage: ActionMessage): void | Promise<void
     });
 
     if (promises.length) {
-      return promises.length == 1 ? promises[0] : Promise.all(promises);
+      return promises.length === 1 ? promises[0] : Promise.all(promises);
     }
   }
 }
