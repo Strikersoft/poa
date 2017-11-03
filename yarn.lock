@@ -3701,10 +3701,6 @@ sane@^2.0.0:
   optionalDependencies:
     fsevents "^1.1.1"
 
-satcheljs@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/satcheljs/-/satcheljs-3.1.0.tgz#e829e92f57e6c3f0090ebffd04e60e2f54ac656a"
-
 sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"

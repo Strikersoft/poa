@@ -2,20 +2,11 @@
   "name": "poa",
   "version": "0.0.0-development",
   "description": "Poa is an opinionated react framework",
-  "keywords": [
-    "react",
-    "framework",
-    "state-managment",
-    "i18n",
-    "router",
-    "opinionated"
-  ],
+  "keywords": ["react", "framework", "state-managment", "i18n", "router", "opinionated"],
   "main": "dist/poa.js",
   "module": "dist/poa.js",
   "typings": "dist/types/poa.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "author": "Ostap Chervak <ostap.chervak@gstrikersoft.com>",
   "repository": {
     "type": "git",
@@ -28,7 +19,8 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc && rollup -c rollup.config.ts && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
+    "build":
+      "tsc && rollup -c rollup.config.ts && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc -w & rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -43,10 +35,7 @@
     "commitmsg": "validate-commit-msg"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write --print-width=100 --single-quote",
-      "git add"
-    ]
+    "{src,test}/**/*.ts": ["prettier --write --print-width=100 --single-quote", "git add"]
   },
   "config": {
     "commitizen": {
@@ -54,23 +43,17 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage":
+        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "moduleFileExtensions": ["ts", "tsx"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 70,
@@ -128,7 +111,6 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "satcheljs": "^3.1.0"
+    "react-router-dom": "^4.2.2"
   }
 }
