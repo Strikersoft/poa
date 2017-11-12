@@ -25,6 +25,7 @@ import { Link } from './router-lib/link';
 import { resetStateGlobals, addMiddleware } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
 import { PoaBootConfig } from './poa.interfaces';
+import { NavLink } from 'react-router-dom';
 
 const log = logger.get('poa-bootstrap');
 
@@ -108,10 +109,8 @@ export async function testBoot(state?: { initial: any; actions: any }) {
 }
 
 export {
-  Route,
   Component,
   Translator,
-  Link,
   addMiddleware,
   createAction,
   addMutator,
@@ -119,6 +118,9 @@ export {
   PoaRouteResolveStratery,
   initAction
 };
+
+// Router
+export { NavLink, Link, Route };
 
 export function resetPoaGlobals() {
   resetRouterGlobals();

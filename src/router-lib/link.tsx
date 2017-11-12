@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RRLink, LinkProps } from 'react-router-dom';
+import { Link as RRLink, LinkProps, NavLink } from 'react-router-dom';
 import { logger } from '../logger-lib/logger';
 import { userRoutes } from './router';
 
@@ -20,3 +20,5 @@ export function Link(props: PoaLinkProps) {
 
   return <RRLink {...props} />;
 }
+
+export { NavLink };
