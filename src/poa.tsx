@@ -23,7 +23,7 @@ import {
   initAction
 } from './state-lib/state';
 import { Link } from './router-lib/link';
-import { resetStateGlobals, addMiddleware } from './state-lib/state';
+import { resetStateGlobals, addMiddleware, getStore } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
 import { PoaBootConfig } from './poa.interfaces';
 
@@ -130,3 +130,19 @@ export function resetPoaGlobals() {
   resetRouterGlobals();
   resetStateGlobals();
 }
+
+// Mobx
+import {
+  observable,
+  computed as mobxComputed,
+  action,
+  when,
+  autorun,
+  autorunAsync,
+  IComputedValue
+} from 'mobx';
+import { observer, Observer } from 'mobx-react';
+
+export const computed = (fn: Function) => mobxComputed(() => fn({ store: getStore() }));
+
+export { observable, action, when, autorun, autorunAsync, IComputedValue, observer, Observer };
