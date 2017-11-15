@@ -2,7 +2,7 @@ import {
   createStore as satchelCreateStore,
   useStrict,
   mutator,
-  action,
+  asyncAction,
   orchestrator,
   DispatchFunction,
   Middleware,
@@ -81,7 +81,7 @@ export function createAction<
   T extends ActionMessage = {},
   TActionCreator extends ActionCreator<T> = () => T
 >(actionType: string, target?: TActionCreator): TActionCreator {
-  return action(actionType, target);
+  return asyncAction(actionType, target);
 }
 
 export interface PoaSideEffectOpts {

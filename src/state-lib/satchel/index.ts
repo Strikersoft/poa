@@ -7,7 +7,7 @@ export { default as DispatchFunction } from './interfaces/DispatchFunction';
 export { default as Middleware } from './interfaces/Middleware';
 export { default as MutatorFunction } from './interfaces/MutatorFunction';
 export { default as OrchestratorFunction } from './interfaces/OrchestratorFunction';
-export { action, actionCreator } from './actionCreator';
+export { action, actionCreator, asyncAction } from './actionCreator';
 export { default as applyMiddleware } from './applyMiddleware';
 export { default as createStore } from './createStore';
 export { dispatch } from './dispatcher';

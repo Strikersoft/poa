@@ -10,7 +10,7 @@ import {
   initAction,
   addSideEffects,
   testBoot,
-  PoaRouteResolveStratery,
+  PoaRouteResolveStrategy,
   NavLink
 } from '../src/poa';
 import * as ReactDOM from 'react-dom';
@@ -120,7 +120,7 @@ describe('Route() decorator', () => {
   it('expect resolveStrategy mode nonwait', async () => {
     Route({
       path: '/',
-      resolveStrategy: PoaRouteResolveStratery.nonwait
+      resolveStrategy: PoaRouteResolveStrategy.nonwait
     })(() => <div>/</div>);
 
     const htmlNode = await testBoot();
