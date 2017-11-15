@@ -10,7 +10,8 @@ import {
   initAction,
   addSideEffects,
   testBoot,
-  PoaRouteResolveStratery
+  PoaRouteResolveStratery,
+  NavLink
 } from '../src/poa';
 import * as ReactDOM from 'react-dom';
 import { getStore, addMiddleware } from '../src/state-lib/state';
@@ -140,9 +141,34 @@ describe('Route() decorator', () => {
     expect(htmlNode.getElementsByTagName('a')[0].tagName).toBe('A');
   });
 
+  it('renders correct navlink', async () => {
+    Route({ path: '/' })(() => <NavLink to="/" />);
+
+    const htmlNode = document.createElement('div');
+
+    await boot({
+      react: { htmlNode },
+      router: { memoryRouter: true, memoryRouterProps: { initialEntries: ['/'] } }
+    });
+
+    expect(htmlNode.textContent).toBe('');
+    expect(htmlNode.getElementsByTagName('a')[0].tagName).toBe('A');
+  });
+
   it('warn on incorrect link', async () => {
     process.env.NODE_ENV = 'development';
     Route({ path: '/' })(() => <Link to="/123" />);
+
+    const htmlNode = await testBoot();
+
+    expect(htmlNode.textContent).toBe('');
+    expect(htmlNode.getElementsByTagName('a')[0].tagName).toBe('A');
+    process.env.NODE_ENV = 'production';
+  });
+
+  it('warn on incorrect navlink', async () => {
+    process.env.NODE_ENV = 'development';
+    Route({ path: '/' })(() => <NavLink to="/123" />);
 
     const htmlNode = await testBoot();
 
