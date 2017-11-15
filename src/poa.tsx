@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Switch, Router, Redirect, MemoryRouter } from 'react-router';
 import { createBrowserHistory, createHashHistory, History } from 'history';
-import { NavLink } from 'react-router-dom';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
 import {
@@ -22,7 +21,7 @@ import {
   addSideEffects,
   initAction
 } from './state-lib/state';
-import { Link } from './router-lib/link';
+import { Link, NavLink } from './router-lib/link';
 import { resetStateGlobals, addMiddleware, getStore } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
 import { PoaBootConfig } from './poa.interfaces';
