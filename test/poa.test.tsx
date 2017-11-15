@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { boot, Route, resetPoaGlobals } from '../src/poa';
 import {
+  boot,
+  Route,
+  resetPoaGlobals,
   Component,
   Link,
   createAction,
@@ -15,7 +17,7 @@ import { getStore, addMiddleware } from '../src/state-lib/state';
 
 (global as any).requestAnimationFrame = function(callback) {
   setTimeout(callback, 0);
-}
+};
 
 beforeEach(() => {
   resetPoaGlobals();
@@ -24,6 +26,18 @@ beforeEach(() => {
 describe('boot() method', () => {
   it('boots poa correctly', async () => {
     await testBoot();
+  });
+
+  it('shows loading on boot', async done => {
+    const htmlNode = document.createElement('div');
+
+    addSideEffects(initAction, async () => {
+      expect(htmlNode.textContent).toEqual('loading');
+      done();
+    });
+
+    await testBoot({ initial: {}, actions: {} }, htmlNode, () => <div>loading</div>);
+  });
 });
 
 describe('Route() decorator', () => {
@@ -35,11 +49,11 @@ describe('Route() decorator', () => {
     expect(htmlNode.textContent).toBe('/');
   });
 
-  it('triggers async onActivate hook', async cb => {
+  it('triggers async onActivate hook', async done => {
     Route({
       path: '/',
       async onActivate() {
-        cb();
+        done();
         return true;
       }
     })(() => <div>/</div>);
@@ -49,11 +63,11 @@ describe('Route() decorator', () => {
     expect(htmlNode.textContent).toBe('/');
   });
 
-  it('pass actions into onActivate hook', async cb => {
+  it('pass actions into onActivate hook', async done => {
     Route({
       path: '/',
       async onActivate(actions) {
-        cb();
+        done();
         expect(actions).toBeDefined();
         return true;
       }
@@ -170,7 +184,7 @@ describe('State managment', () => {
     const initialState = { a: 1 };
     const action1 = createAction('change_a', (a: number) => ({ a }));
 
-    addMutator(action1, (payload, { store }: { store: typeof initialState}) => {
+    addMutator(action1, (payload, { store }: { store: typeof initialState }) => {
       store.a = payload.a;
     });
 
@@ -191,11 +205,11 @@ describe('State managment', () => {
     expect(getStore().a).toBe(2);
   });
 
-  it('triggers side effects', async (done) => {
+  it('triggers side effects', async done => {
     const initialState = { a: 1 };
     const action1 = createAction('change_b', (a: number) => ({ a }));
 
-    addMutator(action1, (payload, store: typeof initialState) => {
+    addMutator(action1, (payload, { store }) => {
       store.a = payload.a;
     });
 
@@ -219,7 +233,7 @@ describe('State managment', () => {
     action1(2);
   });
 
-  it('dispatches init event on load', async cb => {
+  it('dispatches init event on load', async done => {
     const initialState = { a: 1 };
     const TestComponent = Component()(
       class TestComponent extends React.Component {
@@ -233,7 +247,7 @@ describe('State managment', () => {
     Route({ path: '/' })(() => <TestComponent />);
 
     addSideEffects(initAction, () => {
-      cb();
+      done();
     });
 
     const htmlNode = await testBoot({ initial: initialState, actions: {} });
@@ -241,7 +255,7 @@ describe('State managment', () => {
     expect(htmlNode.textContent).toBe(initialState.a.toString());
   });
 
-  it('assigns middlewares', async (cb) => {
+  it('assigns middlewares', async done => {
     const initialState = { a: 1 };
     const TestComponent = Component()(
       class TestComponent extends React.Component {
@@ -254,15 +268,14 @@ describe('State managment', () => {
 
     Route({ path: '/' })(() => <TestComponent />);
 
-    addMiddleware((store) => (next, action) => {
+    addMiddleware(store => (next, action) => {
       expect(store).toEqual(initialState);
-      cb();
-      next(action)
+      done();
+      next(action);
     });
 
     const htmlNode = await testBoot({ initial: initialState, actions: {} });
 
     expect(htmlNode.textContent).toBe(initialState.a.toString());
-
-  })
+  });
 });
