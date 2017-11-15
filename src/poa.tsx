@@ -8,7 +8,8 @@ import {
   userRoutes,
   Route,
   PoaRouteResolveStratery,
-  resetRouterGlobals
+  resetRouterGlobals,
+  PoaRouteConfig
 } from './router-lib/router';
 import { Component } from './component';
 import { logger } from './logger-lib/logger';
@@ -19,11 +20,12 @@ import {
   createAction,
   addMutator,
   addSideEffects,
-  initAction
+  initAction,
+  resetStateGlobals,
+  addMiddleware,
+  getStore
 } from './state-lib/state';
 import { Link, NavLink } from './router-lib/link';
-import { resetStateGlobals, addMiddleware, getStore } from './state-lib/state';
-import { PoaRouteConfig } from './router-lib/router';
 import { PoaBootConfig } from './poa.interfaces';
 
 const log = logger.get('poa-bootstrap');
@@ -94,19 +96,19 @@ export async function boot(config: PoaBootConfig) {
 }
 
 // TODO: use correct state interface not on demand
-export async function testBoot(state?: { initial: any; actions: any }) {
-  const htmlNode = document.createElement('div');
-
-  await boot(
-    Object.assign({
-      react: { htmlNode },
-      router: {
-        memoryRouter: true,
-        memoryRouterProps: { initialEntries: ['/'] }
-      },
-      state: state
-    })
-  );
+export async function testBoot(
+  state?: { initial: any; actions: any },
+  htmlNode = document.createElement('div'),
+  loading?: any
+) {
+  await boot({
+    react: { htmlNode, loadingComponent: loading },
+    router: {
+      memoryRouter: true,
+      memoryRouterProps: { initialEntries: ['/'] }
+    },
+    state: state
+  });
 
   return htmlNode;
 }

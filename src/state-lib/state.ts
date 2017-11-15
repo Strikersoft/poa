@@ -15,6 +15,7 @@ import { History } from 'history';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';
 import { getHistory } from '../router-lib/router';
+import { __resetGlobalContext } from './satchel/globalContext';
 
 useStrict(false);
 
@@ -129,6 +130,7 @@ export function resetStateGlobals() {
   setActions([]);
   setStore({});
   setEnv({});
+  __resetGlobalContext();
 }
 
 export declare type PoaMiddleware = (store: any) => Middleware;

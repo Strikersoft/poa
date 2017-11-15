@@ -25,7 +25,7 @@ export function asyncAction<
 }
 
 async function asyncDispatch(actionMessage: ActionMessage) {
-  return await dispatch(actionMessage);
+  return dispatch(actionMessage);
 }
 
 function createActionCreator<T extends ActionMessage, TActionCreator extends ActionCreator<T>>(
