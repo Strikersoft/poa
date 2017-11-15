@@ -20,12 +20,10 @@ export enum RouteMode {
 
 @observer
 export class InternalPoaRoute extends React.Component<PoaRouteProps> {
-  @observable mode: RouteMode = RouteMode.resolved;
+  @observable mode: RouteMode = RouteMode.loading;
   redirectTo: string;
 
   async componentWillMount() {
-    this.mode = RouteMode.resolved;
-
     if (this.props.config.onActivate) {
       this.mode = RouteMode.loading;
       try {
@@ -40,8 +38,11 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
 
         this.mode = RouteMode.resolved;
       } catch (e) {
+        log.debug('Route onActivate error', e);
         this.mode = RouteMode.rejected;
       }
+    } else {
+      this.mode = RouteMode.resolved;
     }
   }
 
