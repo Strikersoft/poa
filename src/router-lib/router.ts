@@ -7,7 +7,7 @@ export { Link } from './link';
 
 const log = logger.get('poa-router');
 
-export enum PoaRouteResolveStratery {
+export enum PoaRouteResolveStrategy {
   wait,
   nonwait
 }
@@ -20,7 +20,7 @@ export interface PoaRouteDecorator {
   loading?: () => any;
   // tslint:disable-next-line:no-any
   error?: () => any;
-  resolveStrategy?: PoaRouteResolveStratery;
+  resolveStrategy?: PoaRouteResolveStrategy;
   namespaces?: string[];
 }
 
@@ -37,7 +37,7 @@ export function Route(config: PoaRouteDecorator) {
     const routeConfig: PoaRouteConfig = {
       exact: true,
       component: constructor,
-      resolveStrategy: PoaRouteResolveStratery.wait,
+      resolveStrategy: PoaRouteResolveStrategy.wait,
       ...config
     };
 

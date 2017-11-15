@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observable } from 'mobx';
 import { Route, RouteProps, Redirect } from 'react-router';
-import { PoaRouteConfig, PoaRouteResolveStratery } from './router';
+import { PoaRouteConfig, PoaRouteResolveStrategy } from './router';
 import { getActions } from '../state-lib/state';
 import { observer } from 'mobx-react';
 import { logger } from '../logger-lib/logger';
@@ -47,7 +47,7 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
   }
 
   render() {
-    if (this.props.config.resolveStrategy === PoaRouteResolveStratery.nonwait) {
+    if (this.props.config.resolveStrategy === PoaRouteResolveStrategy.nonwait) {
       if (this.redirectTo) {
         return <Redirect exact={true} to={this.redirectTo} />;
       }

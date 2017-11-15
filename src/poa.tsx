@@ -7,7 +7,7 @@ import {
   routerBoot,
   userRoutes,
   Route,
-  PoaRouteResolveStratery,
+  PoaRouteResolveStrategy,
   resetRouterGlobals,
   PoaRouteConfig
 } from './router-lib/router';
@@ -120,7 +120,7 @@ export {
   createAction,
   addMutator,
   addSideEffects,
-  PoaRouteResolveStratery,
+  PoaRouteResolveStrategy,
   initAction
 };
 
