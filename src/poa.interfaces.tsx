@@ -2,7 +2,7 @@ import { History } from 'history';
 import { PoaI18nOpts } from './i18next-lib/i18next';
 
 export interface PoaBootConfig {
-  react: { htmlNode: HTMLElement };
+  react: { htmlNode: HTMLElement; loadingComponent?: any };
   router: {
     hashRouter?: boolean;
     memoryRouter?: boolean;

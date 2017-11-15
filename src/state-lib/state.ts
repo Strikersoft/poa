@@ -122,7 +122,7 @@ export async function bootstrapState(initialState: {}, actions: typeof internalA
 
   middlewaresToAdd.forEach(m => applyMiddleware(m(getStore())));
 
-  initAction();
+  await initAction();
 }
 
 export function resetStateGlobals() {

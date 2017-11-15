@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Switch, Router, Redirect, MemoryRouter } from 'react-router';
 import { createBrowserHistory, createHashHistory, History } from 'history';
+import { NavLink } from 'react-router-dom';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
 import {
@@ -25,7 +26,6 @@ import { Link } from './router-lib/link';
 import { resetStateGlobals, addMiddleware } from './state-lib/state';
 import { PoaRouteConfig } from './router-lib/router';
 import { PoaBootConfig } from './poa.interfaces';
-import { NavLink } from 'react-router-dom';
 
 const log = logger.get('poa-bootstrap');
 
@@ -77,6 +77,10 @@ class PoaApp extends React.Component<{ config: PoaBootConfig; history: History }
 }
 
 export async function boot(config: PoaBootConfig) {
+  if (config.react.loadingComponent) {
+    await reactDomPromisify(<config.react.loadingComponent />, config.react.htmlNode);
+  }
+
   const browserHistoryType = await routerBoot(config);
   await bootstrapLocalization(config.i18n || {});
 
