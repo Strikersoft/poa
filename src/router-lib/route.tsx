@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { Route, RouteProps, Redirect } from 'react-router';
 import { PoaRouteConfig, PoaRouteResolveStrategy } from './router';
-import { getActions } from '../state-lib/state';
+import { getActions, getStore } from '../state-lib/state';
 import { observer } from 'mobx-react';
 import { logger } from '../logger-lib/logger';
 
@@ -29,6 +29,7 @@ export class InternalPoaRoute extends React.Component<PoaRouteProps> {
       try {
         const result = await this.props.config.onActivate({
           actions: getActions(),
+          store: getStore(),
           location: this.props.location
         });
 
