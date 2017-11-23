@@ -88,6 +88,7 @@ export interface PoaSideEffectOpts {
   actions: any;
   router: History;
   env: any;
+  store: any;
 }
 
 export declare type PoaSideEffectFunction<T extends ActionMessage> = (
@@ -100,7 +101,12 @@ export function addSideEffects<T extends ActionMessage>(
   target: PoaSideEffectFunction<T>
 ): OrchestratorFunction<T> {
   return orchestrator(actionCreator, actionMessage => {
-    return target(actionMessage, { actions: getActions(), router: getHistory(), env: getEnv() });
+    return target(actionMessage, {
+      actions: getActions(),
+      router: getHistory(),
+      env: getEnv(),
+      store: getStore()
+    });
   });
 }
 
