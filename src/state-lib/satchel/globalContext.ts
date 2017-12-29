@@ -1,4 +1,4 @@
-import { map, ObservableMap } from 'mobx';
+import { observable, ObservableMap } from 'mobx';
 import ActionMessage from './interfaces/ActionMessage';
 import DispatchFunction from './interfaces/DispatchFunction';
 import Subscriber from './interfaces/Subscriber';
@@ -23,7 +23,7 @@ declare var global: {
 export function __resetGlobalContext() {
   global.__poaSatchelGlobalContext = {
     schemaVersion: schemaVersion,
-    rootStore: map({}),
+    rootStore: observable.map({}),
     nextActionId: 0,
     subscriptions: {},
     dispatchWithMiddleware: null,

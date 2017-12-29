@@ -14,8 +14,8 @@ import {
 import { History } from 'history';
 import { injectPropertyToAllComponents } from '../components-registry';
 import { logger } from '../logger-lib/logger';
-import { getHistory } from '../router-lib/router';
 import { __resetGlobalContext } from './satchel/globalContext';
+import { getRouter } from '../router-lib/router';
 
 useStrict(false);
 
@@ -86,9 +86,9 @@ export function createAction<
 
 export interface PoaSideEffectOpts {
   actions: any;
-  router: History;
   env: any;
   store: any;
+  router: any;
 }
 
 export declare type PoaSideEffectFunction<T extends ActionMessage> = (
@@ -103,15 +103,15 @@ export function addSideEffects<T extends ActionMessage>(
   return orchestrator(actionCreator, actionMessage => {
     return target(actionMessage, {
       actions: getActions(),
-      router: getHistory(),
       env: getEnv(),
-      store: getStore()
+      store: getStore(),
+      router: getRouter()
     });
   });
 }
 
 export const initAction = createAction('@@INIT', () => ({}));
-const middlewaresToAdd: PoaMiddleware[] = [];
+let middlewaresToAdd: PoaMiddleware[] = [];
 
 // tslint:disable-next-line:no-any
 export async function bootstrapState(initialState: {}, actions: typeof internalActions, env?: any) {
@@ -136,6 +136,7 @@ export function resetStateGlobals() {
   setActions([]);
   setStore({});
   setEnv({});
+  middlewaresToAdd = [];
   __resetGlobalContext();
 }
 

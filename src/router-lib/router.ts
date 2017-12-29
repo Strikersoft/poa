@@ -1,71 +1,148 @@
-import { logger } from '../logger-lib/logger';
-import { observer } from 'mobx-react';
-import { addComponentToRegistry } from '../components-registry';
-import { createHashHistory, createBrowserHistory, History } from 'history';
-import { PoaBootConfig } from '../poa.interfaces';
-export { Link } from './link';
+import { createBrowserHistory, createHashHistory, createMemoryHistory, History } from 'history';
+import { install, Outlet, RouterProvider } from 'mobx-little-router-react';
+import { PoaBootConfig, RouterType, PoaRouteBootConfig } from '../poa.interfaces';
+import { getStore, getActions } from '../state-lib/state';
+import { addComponentToRegistry, injectPropertyToAllComponents } from '../components-registry';
+import { translatorFuncCreator } from '../i18next-lib/i18next';
 
-const log = logger.get('poa-router');
+export type NavigationDescriptor = {
+  type: NavigationType;
+  sequence?: number;
+  to: any;
+  from?: any;
+  shouldTransition?: boolean;
+  leaf?: Route;
+};
 
-export enum PoaRouteResolveStrategy {
-  wait,
-  nonwait
+export interface Route {
+  key: string;
+  value: string;
+  data: any;
+  context: any;
+  params: any;
+  query: any;
+  segment: string;
+  parentUrl: string;
 }
 
-export interface PoaRouteDecorator {
+export interface Navigation {
+  type: any;
+  to: any;
+  from: any;
+  sequence: number;
+  shouldTransition: boolean;
+  leaf?: Route;
+
+  next(next: NavigationDescriptor): any;
+  prev(): any;
+  redirectTo(href: any): Promise<void>;
+  raise(klass: any, ...opts: any[]): Promise<void>;
+  goBack(): Promise<void>;
+}
+
+export interface RouteConfig {
   path: string;
-  exact?: boolean;
-  onActivate?: (actions: {}) => Promise<boolean | string | void>;
-  // tslint:disable-next-line:no-any
-  loading?: () => any;
-  // tslint:disable-next-line:no-any
-  error?: () => any;
-  resolveStrategy?: PoaRouteResolveStrategy;
-  namespaces?: string[];
-}
-
-export interface PoaRouteConfig extends PoaRouteDecorator {
-  // tslint:disable-next-line:no-any
   component: any;
+  query?: Array<string>;
+  key?: string;
+  children?: RouteConfig[];
+  loadChildren?: any;
+  match?: 'full' | 'partial';
+  canActivate?: (route: Route, navigation: Navigation) => boolean | Promise<boolean>;
+  canDeactivate?: (route: Route, navigation: Navigation) => boolean | Promise<boolean>;
+  willActivate?: (route: Route, navigation: Navigation) => Promise<void>;
+  willDeactivate?: (route: Route, navigation: Navigation) => Promise<void>;
+  willResolve?: (route: Route, navigation: Navigation) => Promise<void> | Promise<() => any> | void;
+  onError?: (route: Route, navigation: Navigation, error: any) => Promise<any>;
+  onTransition?: any;
+  onEnter?: (route: Route) => Promise<any>;
+  onExit?: (route: Route) => Promise<any>;
+  getContext?: () => any;
+  getData?: () => any;
+  etc?: any;
+  [key: string]: any;
 }
 
-export let userRoutes: PoaRouteConfig[] = [];
+export interface BootedRouter {
+  router: Router;
+  history: History;
+}
 
-export function Route(config: PoaRouteDecorator) {
-  // tslint:disable-next-line:no-any
-  return function PoaRoute(constructor: any) {
-    const routeConfig: PoaRouteConfig = {
-      exact: true,
-      component: constructor,
-      resolveStrategy: PoaRouteResolveStrategy.wait,
-      ...config
-    };
+export interface Router {
+  start(callback: () => void): any;
+  push(path: string): void;
+  replace(path: string): void;
+  goBack(): void;
+}
 
-    userRoutes.push(routeConfig);
+interface RouterInstallConfig {
+  history: History;
+  routes: RouteConfig[];
+  getContext: () => {};
+}
 
-    addComponentToRegistry(constructor);
-    constructor.prototype.tNamespaces = config.namespaces;
+function installRouter(config: RouterInstallConfig): Router {
+  return install(config);
+}
 
-    return observer(constructor);
+function createRouterInstallConfig(routerConfig: PoaRouteBootConfig): RouterInstallConfig {
+  const getContext = () => {
+    if (routerConfig.context) {
+      return { ...routerConfig.context(), store: getStore(), actions: getActions() };
+    }
+
+    return { store: getStore(), actions: getActions() };
   };
-}
 
-let browserHistoryType: History;
-
-export function getHistory() {
-  return browserHistoryType;
-}
-
-export async function routerBoot(config: PoaBootConfig) {
-  if (config.router.hashRouter) {
-    browserHistoryType = createHashHistory();
-  } else {
-    browserHistoryType = createBrowserHistory();
+  switch (routerConfig.type) {
+    case RouterType.hash:
+      return { history: createHashHistory(), routes: routerConfig.routes, getContext };
+    case RouterType.memory:
+      return { history: createMemoryHistory(), routes: routerConfig.routes, getContext };
+    default:
+      return { history: createBrowserHistory(), routes: routerConfig.routes, getContext };
   }
-
-  return browserHistoryType;
 }
 
-export function resetRouterGlobals() {
-  userRoutes = [];
+let installedRouter: Router;
+
+export function getRouter() {
+  return installedRouter;
+}
+
+const flatten = (list: any[]): any[] =>
+  list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
+
+export async function bootRouter(config: PoaBootConfig): Promise<BootedRouter> {
+  const routerConfig: RouterInstallConfig = createRouterInstallConfig(config.router);
+  installedRouter = installRouter(routerConfig);
+
+  flatten(routerConfig.routes).forEach((route: RouteConfig) => {
+    const overridingHooks = [
+      'canActivate',
+      'canDeactivate',
+      'willActivate',
+      'willDeactivate',
+      'willResolve',
+      'onError',
+      'onTransition',
+      'onEnter',
+      'onExit',
+      'getData'
+    ];
+
+    overridingHooks.forEach(hook => {
+      if (route.component[hook]) {
+        route[hook] = route.component[hook];
+      }
+    });
+  });
+
+  await startRouter(installedRouter);
+
+  return { router: installedRouter, history: routerConfig.history };
+}
+
+export function startRouter(router: Router): Promise<void> {
+  return new Promise(resolve => router.start(resolve));
 }
