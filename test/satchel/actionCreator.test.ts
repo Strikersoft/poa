@@ -7,6 +7,7 @@ import {
 import * as createActionId from '../../src/state-lib/satchel/createActionId';
 import * as dispatcher from '../../src/state-lib/satchel/dispatcher';
 import orchestrator from '../../src/state-lib/satchel/orchestrator';
+import mutator from '../../src/state-lib/satchel/mutator';
 
 describe('actionCreator', () => {
   it('returns the created action message', () => {

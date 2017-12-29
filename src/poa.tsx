@@ -1,20 +1,11 @@
 import * as React from 'react';
-import { Switch, Router, Redirect, MemoryRouter } from 'react-router';
-import { createBrowserHistory, createHashHistory, History } from 'history';
+import { Outlet, RouterProvider } from 'mobx-little-router-react';
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
-import {
-  routerBoot,
-  userRoutes,
-  Route,
-  PoaRouteResolveStrategy,
-  resetRouterGlobals,
-  PoaRouteConfig
-} from './router-lib/router';
 import { Component } from './component';
 import { logger } from './logger-lib/logger';
-import { InternalPoaRoute } from './router-lib/route';
-import { bootstrapLocalization, PoaI18nOpts, Translator } from './i18next-lib/i18next';
+import { bootRouter, Router, Route, Navigation } from './router-lib/router';
+import { bootstrapLocalization, Translator, i18n } from './i18next-lib/i18next';
 import {
   bootstrapState,
   createAction,
@@ -25,73 +16,46 @@ import {
   addMiddleware,
   getStore
 } from './state-lib/state';
-import { Link, NavLink } from './router-lib/link';
-import { PoaBootConfig } from './poa.interfaces';
+import { PoaBootConfig, RouterType } from './poa.interfaces';
 
 const log = logger.get('poa-bootstrap');
 
-class PoaApp extends React.Component<{ config: PoaBootConfig; history: History }> {
-  wasInitiallyRedirected: boolean = false;
-
+class PoaApp extends React.Component<{ config: PoaBootConfig; router: Router }> {
   componentDidCatch(error: any, info: any) {
     log.error(error, info);
   }
 
   render() {
-    const { config } = this.props;
-
-    const routes = userRoutes.map(route => {
-      return (
-        <InternalPoaRoute
-          exact={route.exact}
-          key={route.path}
-          path={route.path}
-          config={route}
-          // tslint:disable-next-line:no-any
-          render={(...args: any[]) => {
-            // initial redirect
-            if (config.router.initialRoute && !this.wasInitiallyRedirected) {
-              this.wasInitiallyRedirected = true;
-              return <Redirect exact={true} from="/" to={config.router.initialRoute} />;
-            }
-
-            return <route.component {...args} />;
-          }}
-        />
-      );
-    });
-
-    if (config.router.memoryRouter) {
-      return (
-        <MemoryRouter {...config.router.memoryRouterProps}>
-          <Switch>{routes}</Switch>
-        </MemoryRouter>
-      );
-    }
-
     return (
-      <Router history={this.props.history}>
-        <Switch>{routes}</Switch>
-      </Router>
+      <RouterProvider router={this.props.router}>
+        <Outlet />
+      </RouterProvider>
     );
   }
 }
 
 export async function boot(config: PoaBootConfig) {
-  if (config.react.loadingComponent) {
+  if (config.react && config.react.loadingComponent) {
     await reactDomPromisify(<config.react.loadingComponent />, config.react.htmlNode);
   }
 
-  const browserHistoryType = await routerBoot(config);
+  const { router } = await bootRouter(config);
+
   await bootstrapLocalization(config.i18n || {});
 
   if (config.state) {
+    // initialize with user defined state
     await bootstrapState(config.state.initial, config.state.actions, config.env);
+  } else {
+    // initialize with default state
+    await bootstrapState({}, [], config.env);
   }
 
   await reactDomPromisify(
-    <PoaApp config={config} history={browserHistoryType} />,
-    config.react.htmlNode
+    <PoaApp config={config} router={router} />,
+
+    // mount to user htmlNode or default node
+    config.react ? config.react.htmlNode : document.getElementById('root')
   );
 }
 
@@ -99,36 +63,25 @@ export async function boot(config: PoaBootConfig) {
 export async function testBoot(
   state?: { initial: any; actions: any },
   htmlNode = document.createElement('div'),
-  loading?: any
+  loading?: any,
+  routes: any[] = []
 ) {
   await boot({
     react: { htmlNode, loadingComponent: loading },
-    router: {
-      memoryRouter: true,
-      memoryRouterProps: { initialEntries: ['/'] }
-    },
-    state: state
+    router: { type: RouterType.memory, routes },
+    state
   });
 
   return htmlNode;
 }
 
-export {
-  Component,
-  Translator,
-  addMiddleware,
-  createAction,
-  addMutator,
-  addSideEffects,
-  PoaRouteResolveStrategy,
-  initAction
-};
+// poa
+export { Component, addMiddleware, createAction, addMutator, addSideEffects, initAction };
 
-// Router
-export { NavLink, Link, Route };
+// i18n
+export { i18n, Translator };
 
 export function resetPoaGlobals() {
-  resetRouterGlobals();
   resetStateGlobals();
 }
 
@@ -147,3 +100,8 @@ import { observer, Observer } from 'mobx-react';
 export const computed = (fn: Function) => mobxComputed(() => fn({ store: getStore() }));
 
 export { observable, action, when, autorun, autorunAsync, IComputedValue, observer, Observer };
+
+// router
+import { Link } from './router-lib/link';
+
+export { RouterType, Link, Route, Navigation, Outlet };
