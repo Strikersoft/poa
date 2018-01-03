@@ -39,8 +39,6 @@ export async function boot(config: PoaBootConfig) {
     await reactDomPromisify(<config.react.loadingComponent />, config.react.htmlNode);
   }
 
-  const { router } = await bootRouter(config);
-
   await bootstrapLocalization(config.i18n || {});
 
   if (config.state) {
@@ -50,6 +48,8 @@ export async function boot(config: PoaBootConfig) {
     // initialize with default state
     await bootstrapState({}, [], config.env);
   }
+
+  const { router } = await bootRouter(config);
 
   await reactDomPromisify(
     <PoaApp config={config} router={router} />,

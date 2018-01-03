@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Link, Translator, Component, observable, i18n } from '../../../src/poa';
+import { Link, Translator, Component, observable, i18n, Route } from '../../../src/poa';
 
-import { Store, Actions } from '../store';
+import { Store, Actions, RouterHookOpts } from '../store';
 
 @Component({ namespaces: ['common', 'pages'] })
 export class RootPage extends React.Component {
@@ -10,6 +10,16 @@ export class RootPage extends React.Component {
   t: Translator;
 
   @observable localState = { newHello: '' };
+
+  static canActivate(route: Route) {
+    const { store }: RouterHookOpts = route.context;
+
+    if (!store.helloText) {
+      return false;
+    }
+
+    return true;
+  }
 
   render() {
     return (
