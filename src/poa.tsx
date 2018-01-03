@@ -1,3 +1,8 @@
+// Workaround for typescript usage
+
+declare module 'mobx-little-router';
+declare module 'mobx-little-router-react';
+
 import * as React from 'react';
 import { Outlet, RouterProvider } from 'mobx-little-router-react';
 
