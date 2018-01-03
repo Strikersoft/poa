@@ -1,5 +1,4 @@
 // Workaround for typescript usage
-
 declare module 'mobx-little-router';
 declare module 'mobx-little-router-react';
 
