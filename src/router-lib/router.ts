@@ -42,7 +42,7 @@ export interface Navigation {
 
 export interface RouteConfig {
   path: string;
-  component: any;
+  component?: any;
   query?: Array<string>;
   key?: string;
   children?: RouteConfig[];
@@ -132,7 +132,7 @@ export async function bootRouter(config: PoaBootConfig): Promise<BootedRouter> {
     ];
 
     overridingHooks.forEach(hook => {
-      if (route.component[hook]) {
+      if (route.component && route.component[hook]) {
         route[hook] = route.component[hook];
       }
     });
