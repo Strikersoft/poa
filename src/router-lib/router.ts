@@ -1,5 +1,5 @@
 import { createBrowserHistory, createHashHistory, createMemoryHistory, History } from 'history';
-import { install, Outlet, RouterProvider } from 'mobx-little-router-react';
+const { install, Outlet, RouterProvider } = require('mobx-little-router-react');
 import { PoaBootConfig, RouterType, PoaRouteBootConfig } from '../poa.interfaces';
 import { getStore, getActions } from '../state-lib/state';
 import { addComponentToRegistry, injectPropertyToAllComponents } from '../components-registry';

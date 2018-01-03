@@ -1,9 +1,5 @@
-// Workaround for typescript usage
-declare module 'mobx-little-router-react*';
-declare module 'mobx-little-router-react/lib/*';
-
 import * as React from 'react';
-import { Outlet, RouterProvider } from 'mobx-little-router-react/lib';
+const MLRR = require('mobx-little-router-react');
 
 import { reactDomPromisify } from './utils/react-dom-wrapper';
 import { Component } from './component';
@@ -31,9 +27,9 @@ class PoaApp extends React.Component<{ config: PoaBootConfig; router: Router }> 
 
   render() {
     return (
-      <RouterProvider router={this.props.router}>
-        <Outlet />
-      </RouterProvider>
+      <MLRR.RouterProvider router={this.props.router}>
+        <MLRR.Outlet />
+      </MLRR.RouterProvider>
     );
   }
 }
@@ -108,4 +104,6 @@ export { observable, action, when, autorun, autorunAsync, IComputedValue, observ
 // router
 import { Link } from './router-lib/link';
 
-export { RouterType, Link, Route, Navigation, Outlet };
+export const Outlet: any = MLRR.Outlet;
+
+export { RouterType, Link, Route, Navigation };
