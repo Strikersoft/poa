@@ -1,1 +1,1 @@
-declare module 'mobx-little-router';
+declare module 'mobx-little-router*';

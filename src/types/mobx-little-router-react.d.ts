@@ -1,1 +1,1 @@
-declare module 'mobx-little-router-react';
+declare module 'mobx-little-router-react*';
