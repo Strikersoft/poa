@@ -106,4 +106,4 @@ import { Link } from './router-lib/link';
 
 export const Outlet: any = MLRR.Outlet;
 
-export { RouterType, Link, Route, Navigation };
+export { RouterType, Link, Route, Navigation, Router };
