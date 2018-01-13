@@ -11,9 +11,11 @@ addMutator(changeHelloText, ({ text }, { store }: MutationOpts) => {
   store.helloText = text;
 });
 
-addSideEffects(changeHelloText, async ({ text }, { store, actions }: SideEffectOpts) => {
+addSideEffects(changeHelloText, async ({ text }, { store, actions, router }: SideEffectOpts) => {
   await delay(1000);
   console.log('Log change from side-effect async', store.helloText);
+
+  router.push('/about');
 });
 
 export const actions = { changeHelloText };
