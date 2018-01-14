@@ -1,134 +1,28 @@
 {
-  "name": "poa",
-  "version": "0.0.0-development",
-  "description": "Poa is an opinionated react framework",
-  "keywords": [
-    "react",
-    "framework",
-    "state-managment",
-    "i18n",
-    "router",
-    "opinionated"
-  ],
-  "main": "dist/poa.js",
-  "module": "dist/poa.js",
-  "typings": "dist/types/poa.d.ts",
-  "files": [
-    "dist"
-  ],
-  "author": "Ostap Chervak <ostap.chervak@gstrikersoft.com>",
+  "author": "Ostap Chervak <ostap.chervak@strikersoft.com>",
+  "private": true,
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Strikersoft/poa.git"
   },
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
-  },
   "scripts": {
-    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf dist",
-    "build": "tsc && rollup -c rollup.config.ts && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
-    "start": "tsc -w & rollup -c rollup.config.ts -w",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
-    "deploy-docs": "ts-node tools/gh-pages-publish",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "commit": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
-    "prepush": "npm run test:prod && npm run build",
-    "commitmsg": "validate-commit-msg"
+    "bootstrap": "yarn clean:all && yarn && lerna bootstrap",
+    "clean": "lerna run clean",
+    "clean:all": "lerna clean --yes && yarn clean",
+    "publish": "yarn build umd && lerna publish --silent --registry=https://registry.npmjs.org/",
+    "publish:canary": "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
+    "publish:latest": "yarn run publish",
+    "build": "yarn run clean && node scripts/build",
+    "start": "node scripts/start-warning",
+    "test": "node scripts/test",
+    "test-ci": "yarn run typecheck && yarn run test -- --coverage && codecov"
   },
-  "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write --print-width=100 --single-quote",
-      "git add"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "validate-commit-msg": {
-      "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
-    }
-  },
-  "jest": {
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    },
-    "collectCoverage": true,
-    "mapCoverage": true
-  },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "devDependencies": {
-    "@types/jest": "22.0.0",
-    "@types/node": "8.5.2",
-    "colors": "1.1.2",
-    "commitizen": "2.9.6",
-    "coveralls": "3.0.0",
-    "cross-env": "5.1.3",
-    "cz-conventional-changelog": "2.1.0",
-    "husky": "0.14.3",
-    "jasmine": "2.8.0",
-    "jest": "22.0.4",
-    "jest-cli": "22.0.4",
-    "lint-staged": "6.0.0",
-    "lodash.camelcase": "4.3.0",
-    "prettier": "1.9.2",
-    "prompt": "1.0.0",
-    "replace-in-file": "3.1.0",
-    "rimraf": "2.6.2",
-    "rollup": "0.53.1",
-    "rollup-plugin-commonjs": "8.2.6",
-    "rollup-plugin-node-resolve": "3.0.0",
-    "rollup-plugin-sourcemaps": "0.4.2",
-    "rollup-plugin-uglify": "2.0.1",
-    "semantic-release": "8.2.0",
-    "ts-jest": "22.0.0",
-    "ts-node": "4.1.0",
-    "tslint": "5.8.0",
-    "tslint-config-prettier": "1.6.0",
-    "tslint-config-standard": "7.0.0",
-    "typedoc": "0.9.0",
-    "typescript": "2.6.2",
-    "uglify-es": "3.3.3",
-    "validate-commit-msg": "2.14.0"
-  },
-  "dependencies": {
-    "@types/history": "^4.6.2",
-    "@types/i18next": "8.4.2",
-    "@types/react": "16.0.31",
-    "@types/react-dom": "16.0.3",
-    "history": "^4.7.2",
-    "i18next": "10.2.1",
-    "js-logger": "1.4.1",
-    "mobx": "3.4.1",
-    "mobx-little-router": "^1.6.10",
-    "mobx-little-router-react": "^1.6.10",
-    "mobx-react": "^4.3.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "lerna": "^2.7.0"
   }
 }
