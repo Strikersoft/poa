@@ -1,11 +1,21 @@
+# parcel
+.cache
+compiled
+
+# build sources
+dist
+
+# editors
+.vscode
+.idea
+
+# mac
+.DS_Store
+
+# logs
+*.log
+
+# node
 node_modules
 coverage
 .nyc_output
-.DS_Store
-*.log
-.vscode
-.idea
-dist
-compiled
-.awcache
-.cache

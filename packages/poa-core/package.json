@@ -1,0 +1,29 @@
+{
+  "name": "@poa/core",
+  "version": "5.0.0",
+  "private": true,
+  "main": "dist/core.js",
+  "module": "dist/core.es.js",
+  "jsnext:main": "dist/core.es.js",
+  "umd:main": "dist/core.umd.js",
+  "scripts": {
+    "build": "microbundle build",
+    "watch": "microbundle watch"
+  },
+  "devDependencies": {
+    "microbundle": "^0.3.0"
+  },
+  "dependencies": {
+    "@poa/router": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": "16.1.x",
+    "react-dom": "16.1.x",
+    "mobx-little-router": "1.7.x",
+    "mobx-little-router-react": "1.7.x",
+    "history": "4.7.x",
+    "mobx": "3.4.x",
+    "mobx-react": "4.3.x",
+    "@poa/router": "5.x"
+  }
+}
