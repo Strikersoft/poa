@@ -15,9 +15,10 @@
       "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
     "publish:latest": "yarn run publish",
     "build": "yarn run clean && node scripts/build",
-    "start": "npm-run-all --parallel start:core start:router",
+    "start": "npm run bootstrap && npm-run-all --parallel start:core start:router start:state",
     "start:core": "cd packages/poa-core && yarn watch",
     "start:router": "cd packages/poa-router && yarn watch",
+    "start:state": "cd packages/poa-state && yarn watch",
     "test": "node scripts/test",
     "test-ci": "yarn run typecheck && yarn run test -- --coverage && codecov"
   },
