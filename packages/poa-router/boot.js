@@ -7,6 +7,7 @@ function installRouter(config) {
   return install(config);
 }
 
+// TOOD: inject actions, env, store
 function createRouterInstallConfig(routerConfig) {
   const getContext = () => {
     if (routerConfig.context) {
@@ -32,32 +33,9 @@ export function getRouter() {
   return installedRouter;
 }
 
-const flatten = list => list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
-
 export async function boot(config) {
   const routerConfig = createRouterInstallConfig(config);
   installedRouter = installRouter(routerConfig);
-
-  flatten(routerConfig.routes).forEach(route => {
-    const overridingHooks = [
-      'canActivate',
-      'canDeactivate',
-      'willActivate',
-      'willDeactivate',
-      'willResolve',
-      'onError',
-      'onTransition',
-      'onEnter',
-      'onExit',
-      'getData'
-    ];
-
-    overridingHooks.forEach(hook => {
-      if (route.component && route.component[hook]) {
-        route[hook] = route.component[hook];
-      }
-    });
-  });
 
   await startRouter(installedRouter);
 

@@ -4,5 +4,5 @@ import { boot } from '@poa/core';
 import { routes } from './routes';
 
 boot({
-  router: { routes }
+  // router: { routes }
 });

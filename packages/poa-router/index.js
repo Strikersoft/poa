@@ -1,3 +1,12 @@
 // @ts-check
-export { boot as routerBoot } from './boot';
+
+/**
+ * @public
+ */
 export { Link } from './link';
+
+/**
+ * @internal
+ */
+export { boot } from './boot';
+export { PoaApp } from './app';
