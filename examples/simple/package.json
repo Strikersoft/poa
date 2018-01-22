@@ -9,6 +9,7 @@
   "dependencies": {
     "@poa/core": "^5.0.0",
     "@poa/router": "^5.0.0",
+    "@poa/state": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
