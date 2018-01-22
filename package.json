@@ -11,18 +11,19 @@
     "clean": "lerna run clean",
     "clean:all": "lerna clean --yes && yarn clean",
     "publish": "yarn build umd && lerna publish --silent --registry=https://registry.npmjs.org/",
-    "publish:canary": "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
+    "publish:canary":
+      "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
     "publish:latest": "yarn run publish",
     "build": "yarn run clean && node scripts/build",
-    "start": "node scripts/start-warning",
+    "start": "npm-run-all --parallel start:core start:router",
+    "start:core": "cd packages/poa-core && yarn watch",
+    "start:router": "cd packages/poa-router && yarn watch",
     "test": "node scripts/test",
     "test-ci": "yarn run typecheck && yarn run test -- --coverage && codecov"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
+  "workspaces": ["packages/*", "examples/*"],
   "devDependencies": {
-    "lerna": "^2.7.0"
+    "lerna": "^2.7.0",
+    "npm-run-all": "^4.1.2"
   }
 }
