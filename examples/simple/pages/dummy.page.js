@@ -3,14 +3,14 @@
 import React from 'react';
 import { Link } from '@poa/router';
 
-class RootPage extends React.Component {
+class DummyRouter extends React.Component {
   render() {
     return (
       <React.Fragment>
-        Hello world! <Link to="new-route"> Another route</Link>
+        Another route.. <Link to="/"> go back</Link>
       </React.Fragment>
     );
   }
 }
 
-export default RootPage;
+export default DummyRouter;

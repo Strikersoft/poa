@@ -7,8 +7,8 @@
   "jsnext:main": "dist/state.es.js",
   "umd:main": "dist/state.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement",
-    "watch": "microbundle watch --external all --jsx React.createElement"
+    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
   },
   "devDependencies": {
     "microbundle": "0.4.3"

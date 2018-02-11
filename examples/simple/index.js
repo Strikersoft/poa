@@ -1,6 +1,7 @@
+// application bootstrap
 import { boot } from '@poa/core';
 
-// routes
+// routes definitions
 import { routes } from './routes';
 
 boot({
