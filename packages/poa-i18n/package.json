@@ -1,0 +1,25 @@
+{
+  "name": "@poa/i18n",
+  "version": "5.0.0",
+  "private": true,
+  "main": "dist/i18n.js",
+  "module": "dist/i18n.es.js",
+  "jsnext:main": "dist/i18n.es.js",
+  "umd:main": "dist/i18n.umd.js",
+  "scripts": {
+    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
+  },
+  "devDependencies": {
+    "microbundle": "0.4.3",
+    "prettier": "^1.10.2"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
+  },
+  "dependencies": {
+    "@types/i18next": "^8.4.3",
+    "i18next": "^10.3.0"
+  }
+}

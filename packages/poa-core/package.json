@@ -18,6 +18,7 @@
     "@poa/router": "^5.0.0",
     "@poa/satcheljs": "^5.0.0",
     "@poa/state": "^5.0.0",
+    "@poa/i18n": "^5.0.0",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",
