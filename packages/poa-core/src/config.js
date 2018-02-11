@@ -16,7 +16,12 @@ export function createDefaultConfig(config) {
           component: helloComponent
         }
       ]
-    }
+    },
+    state: {
+      initial: {},
+      actions: {}
+    },
+    env: {}
   };
 
   return Object.assign({}, defaultConfig, config);

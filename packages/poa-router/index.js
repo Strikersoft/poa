@@ -8,5 +8,5 @@ export { Link } from './link';
 /**
  * @internal
  */
-export { boot } from './boot';
+export { boot, getRouter } from './boot';
 export { PoaApp } from './app';

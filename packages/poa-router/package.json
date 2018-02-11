@@ -11,9 +11,10 @@
     "watch": "microbundle watch --external all --jsx React.createElement"
   },
   "devDependencies": {
-    "microbundle": "^0.3.1"
+    "microbundle": "0.4.3"
   },
   "dependencies": {
+    "@poa/satcheljs": "^5.0.0",
     "@poa/state": "^5.0.0",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
