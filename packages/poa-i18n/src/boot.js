@@ -18,13 +18,13 @@ export function boot(config, componentsInjector) {
         component.prototype.t = translatorFuncCreator(component.prototype.tNamespaces || [], t);
       });
 
-      return resolve(t);
+      return resolve({ t, i18next });
     });
   });
 }
 
 export const i18n = i18next;
 
-const translatorFuncCreator = (dicts = [], t) => (value, opts = {}) => {
-  return t(value, { ns: [...dicts], ...opts });
+const translatorFuncCreator = (dicts = [], t) => (value, opts) => {
+  return t(value, { ns: [...dicts], opts });
 };
