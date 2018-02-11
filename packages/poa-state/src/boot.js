@@ -1,10 +1,9 @@
 // @ts-check
 
-import { applyMiddleware } from '@poa/satcheljs';
-import { getRouter } from '@poa/router';
-
 import { setEnv, setActions, getActions, getMiddlewares, getStore, getEnv } from './globals';
 import { createInitialStore, createAction } from './wrappers';
+import { applyMiddleware } from '@poa/satcheljs';
+import { getRouter } from '@poa/router';
 
 // Pre-built actions
 export const initAction = createAction('@@INIT', () => ({}));

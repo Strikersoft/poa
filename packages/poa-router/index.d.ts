@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class Link extends React.Component {}
+export class Link extends React.Component<{ to: string }> {}
 
 /**
  * @private
