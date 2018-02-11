@@ -19,3 +19,7 @@ dist
 node_modules
 coverage
 .nyc_output
+
+
+__old_examples__
+__old_src__

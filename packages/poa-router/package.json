@@ -7,11 +7,12 @@
   "jsnext:main": "dist/router.es.js",
   "umd:main": "dist/router.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement",
-    "watch": "microbundle watch --external all --jsx React.createElement"
+    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
   },
   "devDependencies": {
-    "microbundle": "0.4.3"
+    "microbundle": "0.4.3",
+    "prettier": "^1.10.2"
   },
   "dependencies": {
     "@poa/satcheljs": "^5.0.0",
@@ -27,5 +28,9 @@
   "peerDependencies": {
     "react": "16.1.x",
     "react-dom": "16.1.x"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
   }
 }
