@@ -14,6 +14,7 @@ interface PoaAppConfig {
   };
   state?: { initial: any; actions: any };
   env?: any;
+  i18n?: any;
 }
 
 /**

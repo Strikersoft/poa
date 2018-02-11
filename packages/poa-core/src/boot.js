@@ -4,6 +4,7 @@ import React from 'react';
 
 import { boot as routerBoot, PoaApp } from '@poa/router';
 import { boot as stateBoot } from '@poa/state';
+import { boot as i18nBoot } from '@poa/i18n';
 
 import { render } from './utils';
 import { createDefaultConfig } from './config';
@@ -16,6 +17,9 @@ export async function boot(config) {
   if (configWithDefaults.react.loadingComponent) {
     await render(<config.react.loadingComponent />, configWithDefaults.react.htmlNode);
   }
+
+  // initialize localication
+  await i18nBoot(config.i18n, injectPropertyToAllComponents);
 
   // initialize state (await on all initialAction subscribers)
   await stateBoot(configWithDefaults, injectPropertyToAllComponents);
