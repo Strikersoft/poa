@@ -7,14 +7,15 @@
   "jsnext:main": "dist/core.es.js",
   "umd:main": "dist/core.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement",
-    "watch": "microbundle watch --external all --jsx React.createElement"
+    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
   },
   "devDependencies": {
-    "microbundle": "^0.3.0"
+    "microbundle": "0.4.3"
   },
   "dependencies": {
     "@poa/router": "^5.0.0",
+    "@poa/satcheljs": "^5.0.0",
     "@poa/state": "^5.0.0",
     "history": "^4.7.2",
     "mobx": "^3.4.1",

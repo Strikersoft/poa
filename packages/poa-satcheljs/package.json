@@ -1,0 +1,24 @@
+{
+  "name": "@poa/satcheljs",
+  "version": "5.0.0",
+  "private": true,
+  "main": "dist/satcheljs.js",
+  "module": "dist/satcheljs.es.js",
+  "jsnext:main": "dist/satcheljs.es.js",
+  "umd:main": "dist/satcheljs.umd.js",
+  "scripts": {
+    "build": "microbundle build --external=all --entry=src/index.ts",
+    "watch": "microbundle watch --external=all --entry=src/index.ts"
+  },
+  "devDependencies": {
+    "microbundle": "0.4.3"
+  },
+  "dependencies": {
+    "mobx": "^3.4.1",
+    "mobx-react": "^4.3.5"
+  },
+  "peerDependencies": {
+    "react": "16.1.x",
+    "react-dom": "16.1.x"
+  }
+}
