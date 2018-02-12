@@ -1,7 +1,7 @@
 {
   "name": "@poa/satcheljs",
   "version": "5.0.0",
-  "private": true,
+  "private": false,
   "main": "dist/satcheljs.js",
   "module": "dist/satcheljs.es.js",
   "jsnext:main": "dist/satcheljs.es.js",

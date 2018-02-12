@@ -1,7 +1,7 @@
 {
   "name": "@poa/state",
   "version": "5.0.0",
-  "private": true,
+  "private": false,
   "main": "dist/state.js",
   "module": "dist/state.es.js",
   "jsnext:main": "dist/state.es.js",
