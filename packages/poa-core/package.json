@@ -1,6 +1,6 @@
 {
   "name": "@poa/core",
-  "version": "5.0.0-beta3",
+  "version": "5.0.0-beta4",
   "private": false,
   "license": "MIT",
   "main": "dist/core.js",
@@ -16,10 +16,10 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/i18n": "^5.0.0-beta3",
-    "@poa/router": "^5.0.0-beta3",
-    "@poa/satcheljs": "^5.0.0-beta3",
-    "@poa/state": "^5.0.0-beta3",
+    "@poa/i18n": "^5.0.0-beta4",
+    "@poa/router": "^5.0.0-beta4",
+    "@poa/satcheljs": "^5.0.0-beta4",
+    "@poa/state": "^5.0.0-beta4",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",

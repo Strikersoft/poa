@@ -1,6 +1,6 @@
 {
   "name": "@poa/state",
-  "version": "5.0.0-beta3",
+  "version": "5.0.0-beta4",
   "private": false,
   "license": "MIT",
   "main": "dist/state.js",
@@ -16,8 +16,8 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta3",
-    "@poa/satcheljs": "^5.0.0-beta3",
+    "@poa/router": "^5.0.0-beta4",
+    "@poa/satcheljs": "^5.0.0-beta4",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5"
   },
