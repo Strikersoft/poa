@@ -1,6 +1,6 @@
 {
   "name": "@poa/router",
-  "version": "5.0.0-beta3",
+  "version": "5.0.0-beta4",
   "private": false,
   "license": "MIT",
   "main": "dist/router.js",
@@ -16,8 +16,8 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/satcheljs": "^5.0.0-beta3",
-    "@poa/state": "^5.0.0-beta3",
+    "@poa/satcheljs": "^5.0.0-beta4",
+    "@poa/state": "^5.0.0-beta4",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "history": "^4.7.2",
