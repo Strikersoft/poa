@@ -1,7 +1,7 @@
 {
   "name": "@poa/state",
-  "version": "5.0.0-beta1",
-  "private": false,
+  "version": "5.0.0-beta2",
+  "private": true,
   "license": "MIT",
   "main": "dist/state.js",
   "module": "dist/state.es.js",
@@ -16,8 +16,8 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta1",
-    "@poa/satcheljs": "^5.0.0-beta1",
+    "@poa/router": "^5.0.0-beta2",
+    "@poa/satcheljs": "^5.0.0-beta2",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5"
   },
@@ -28,5 +28,8 @@
   "prettier": {
     "printWidth": 100,
     "singleQuote": true
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
