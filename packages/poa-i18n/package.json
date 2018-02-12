@@ -1,7 +1,7 @@
 {
   "name": "@poa/i18n",
-  "version": "5.0.0-beta2",
-  "private": true,
+  "version": "5.0.0-beta3",
+  "private": false,
   "license": "MIT",
   "main": "dist/i18n.js",
   "module": "dist/i18n.es.js",
@@ -20,7 +20,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta2",
+    "@poa/router": "^5.0.0-beta3",
     "@types/i18next": "^8.4.3",
     "i18next": "^10.3.0"
   },
