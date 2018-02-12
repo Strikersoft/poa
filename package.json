@@ -13,14 +13,13 @@
     "publish": "yarn build umd && lerna publish --silent --registry=https://registry.npmjs.org/",
     "publish:canary":
       "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
-    "publish:latest": "yarn run publish",
-    "build": "yarn run clean && node scripts/build",
-    "start": "npm run bootstrap && npm-run-all --parallel start:core start:router start:state",
+    "start":
+      "npm run bootstrap && npm-run-all --parallel start:core start:router start:state start:satcheljs start:i18n",
     "start:core": "cd packages/poa-core && yarn watch",
     "start:router": "cd packages/poa-router && yarn watch",
     "start:state": "cd packages/poa-state && yarn watch",
-    "test": "node scripts/test",
-    "test-ci": "yarn run typecheck && yarn run test -- --coverage && codecov"
+    "start:satcheljs": "cd packages/poa-satcheljs && yarn watch",
+    "start:i18n": "cd packages/poa-i18n && yarn watch"
   },
   "workspaces": ["packages/*", "examples/*"],
   "prettier": {
