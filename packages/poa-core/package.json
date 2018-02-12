@@ -1,7 +1,7 @@
 {
   "name": "@poa/core",
   "version": "5.0.0",
-  "private": true,
+  "private": false,
   "main": "dist/core.js",
   "module": "dist/core.es.js",
   "jsnext:main": "dist/core.es.js",

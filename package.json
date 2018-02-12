@@ -21,7 +21,7 @@
     "start:satcheljs": "cd packages/poa-satcheljs && yarn watch",
     "start:i18n": "cd packages/poa-i18n && yarn watch"
   },
-  "workspaces": ["packages/*", "examples/*"],
+  "workspaces": ["packages/*"],
   "prettier": {
     "printWidth": 100,
     "singleQuote": true

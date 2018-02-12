@@ -1,7 +1,7 @@
 {
   "name": "@poa/i18n",
   "version": "5.0.0",
-  "private": true,
+  "private": false,
   "main": "dist/i18n.js",
   "module": "dist/i18n.es.js",
   "jsnext:main": "dist/i18n.es.js",
