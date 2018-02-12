@@ -1,7 +1,8 @@
 {
   "name": "@poa/core",
   "version": "5.0.0",
-  "private": false,
+  "private": true,
+  "license": "MIT",
   "main": "dist/core.js",
   "module": "dist/core.es.js",
   "jsnext:main": "dist/core.es.js",

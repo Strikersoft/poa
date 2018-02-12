@@ -1,7 +1,8 @@
 {
   "name": "@poa/router",
   "version": "5.0.0",
-  "private": false,
+  "private": true,
+  "license": "MIT",
   "main": "dist/router.js",
   "module": "dist/router.es.js",
   "jsnext:main": "dist/router.es.js",

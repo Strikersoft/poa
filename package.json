@@ -12,14 +12,21 @@
     "clean:all": "lerna clean --yes && yarn clean",
     "publish": "yarn build umd && lerna publish --silent --registry=https://registry.npmjs.org/",
     "publish:canary":
-      "yarn build umd && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
+      "yarn build && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
     "start":
       "npm run bootstrap && npm-run-all --parallel start:core start:router start:state start:satcheljs start:i18n",
     "start:core": "cd packages/poa-core && yarn watch",
     "start:router": "cd packages/poa-router && yarn watch",
     "start:state": "cd packages/poa-state && yarn watch",
     "start:satcheljs": "cd packages/poa-satcheljs && yarn watch",
-    "start:i18n": "cd packages/poa-i18n && yarn watch"
+    "start:i18n": "cd packages/poa-i18n && yarn watch",
+    "build":
+      "npm run bootstrap && npm-run-all --parallel build:core build:router build:state build:satcheljs build:i18n",
+    "build:core": "cd packages/poa-core && yarn build",
+    "build:router": "cd packages/poa-router && yarn build",
+    "build:state": "cd packages/poa-state && yarn build",
+    "build:satcheljs": "cd packages/poa-satcheljs && yarn build",
+    "build:i18n": "cd packages/poa-i18n && yarn build"
   },
   "workspaces": ["packages/*"],
   "prettier": {
