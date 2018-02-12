@@ -1,6 +1,7 @@
 {
   "name": "@poa/core",
   "version": "5.0.0-beta4",
+  "description": "Poa — opinionated React framework",
   "private": false,
   "license": "MIT",
   "main": "dist/core.js",
