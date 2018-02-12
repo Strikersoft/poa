@@ -1,6 +1,6 @@
 {
   "name": "@poa/core",
-  "version": "5.0.0",
+  "version": "5.0.0-beta",
   "private": true,
   "license": "MIT",
   "main": "dist/core.js",
@@ -8,18 +8,18 @@
   "jsnext:main": "dist/core.es.js",
   "umd:main": "dist/core.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
-    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
+    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.js"
   },
   "devDependencies": {
     "microbundle": "0.4.3",
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/router": "^5.0.0",
-    "@poa/satcheljs": "^5.0.0",
-    "@poa/state": "^5.0.0",
-    "@poa/i18n": "^5.0.0",
+    "@poa/i18n": "^5.0.0-beta",
+    "@poa/router": "^5.0.0-beta",
+    "@poa/satcheljs": "^5.0.0-beta",
+    "@poa/state": "^5.0.0-beta",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",

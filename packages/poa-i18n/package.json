@@ -1,6 +1,6 @@
 {
   "name": "@poa/i18n",
-  "version": "5.0.0",
+  "version": "5.0.0-beta",
   "private": true,
   "license": "MIT",
   "main": "dist/i18n.js",
@@ -8,8 +8,8 @@
   "jsnext:main": "dist/i18n.es.js",
   "umd:main": "dist/i18n.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
-    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
+    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.js"
   },
   "devDependencies": {
     "microbundle": "0.4.3",
@@ -20,6 +20,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@poa/router": "^5.0.0-beta",
     "@types/i18next": "^8.4.3",
     "i18next": "^10.3.0"
   }

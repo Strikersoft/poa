@@ -1,6 +1,6 @@
 {
   "name": "@poa/state",
-  "version": "5.0.0",
+  "version": "5.0.0-beta",
   "private": true,
   "license": "MIT",
   "main": "dist/state.js",
@@ -8,15 +8,16 @@
   "jsnext:main": "dist/state.es.js",
   "umd:main": "dist/state.umd.js",
   "scripts": {
-    "build": "microbundle build --external all --jsx React.createElement --entry=src/index.js",
-    "watch": "microbundle watch --external all --jsx React.createElement --entry=src/index.js"
+    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.js",
+    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.js"
   },
   "devDependencies": {
     "microbundle": "0.4.3",
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/satcheljs": "^5.0.0",
+    "@poa/router": "^5.0.0-beta",
+    "@poa/satcheljs": "^5.0.0-beta",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5"
   },
