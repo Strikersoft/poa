@@ -19,14 +19,14 @@
 
 Poa — opinionated React framework.
 
-What DOES opinionated mean?
+What does opinionated mean?
 
 * Framework will not suit for every case
 * It has unique vision on how things should work
 * #0CJS
 * We hame some opinions on how things should work ;)
 
-Since it is framework, not library, it bundled with all needed stuff to create small, medium and large projects.
+Since it is a framework, not a library, it bundled with all needed stuff to create small, medium and large projects.
 
 ### Getting started
 
