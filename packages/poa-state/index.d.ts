@@ -1,9 +1,21 @@
+export * from 'mobx';
+export * from 'mobx-react';
+
 declare type componentsInjector = (component) => void;
+
+export function addMiddleware(...middlewares: any[]);
+
+export function selector(fn: any);
+
+export const initAction: any;
 
 /**
  * @private
  */
-export function boot(config: any, componentsInjector: componentsInjector): Promise<void>;
+export function boot(
+  config: any,
+  componentsInjector: componentsInjector
+): Promise<{ store: any; actions: any; env: any }>;
 
 /*
  * createAction

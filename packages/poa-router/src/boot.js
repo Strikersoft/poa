@@ -8,13 +8,13 @@ function installRouter(config) {
 }
 
 // TOOD: inject actions, env, store
-function createRouterInstallConfig(routerConfig) {
+function createRouterInstallConfig(routerConfig, injectionData) {
   const getContext = () => {
     if (routerConfig.context) {
-      return Object.assign({}, routerConfig.context());
+      return Object.assign({}, routerConfig.context(), injectionData);
     }
 
-    return {};
+    return injectionData;
   };
 
   switch (routerConfig.type) {
@@ -33,8 +33,8 @@ export function getRouter() {
   return installedRouter;
 }
 
-export async function boot(config) {
-  const routerConfig = createRouterInstallConfig(config);
+export async function boot(config, injectionData = {}) {
+  const routerConfig = createRouterInstallConfig(config, injectionData);
   installedRouter = installRouter(routerConfig);
 
   await startRouter(installedRouter);
