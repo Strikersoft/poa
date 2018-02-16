@@ -1,4 +1,4 @@
-![Poa Banner](https://raw.githubusercontent.com/Strikersoft/poa/master/images/ic-logo-big.png | width=480)
+![Poa Banner](https://raw.githubusercontent.com/Strikersoft/poa/master/images/ic-logo-big.png)
 
 # Poa framework
 
