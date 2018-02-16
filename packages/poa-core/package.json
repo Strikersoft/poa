@@ -1,6 +1,6 @@
 {
   "name": "@poa/core",
-  "version": "5.0.0-beta10",
+  "version": "5.0.0-beta11",
   "description": "Poa — opinionated React framework",
   "private": false,
   "license": "MIT",
@@ -17,10 +17,10 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/i18n": "^5.0.0-beta10",
-    "@poa/router": "^5.0.0-beta10",
-    "@poa/satcheljs": "^5.0.0-beta10",
-    "@poa/state": "^5.0.0-beta10",
+    "@poa/i18n": "^5.0.0-beta11",
+    "@poa/router": "^5.0.0-beta11",
+    "@poa/satcheljs": "^5.0.0-beta11",
+    "@poa/state": "^5.0.0-beta11",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",
