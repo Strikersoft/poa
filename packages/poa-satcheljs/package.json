@@ -1,6 +1,6 @@
 {
   "name": "@poa/satcheljs",
-  "version": "5.0.0-beta6",
+  "version": "5.0.0-beta7",
   "private": false,
   "license": "MIT",
   "main": "dist/satcheljs.js",
@@ -16,7 +16,7 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta6",
+    "@poa/router": "^5.0.0-beta7",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5"
   },
