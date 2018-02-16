@@ -1,6 +1,6 @@
 {
   "name": "@poa/i18n",
-  "version": "5.0.0-beta13",
+  "version": "5.0.0-prerelease",
   "description": "Poa — opinionated React framework",
   "private": false,
   "license": "MIT",
@@ -21,7 +21,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta13",
+    "@poa/router": "^5.0.0-prerelease",
     "@types/i18next": "^8.4.3",
     "i18next": "^10.3.0"
   },
