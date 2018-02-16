@@ -1,6 +1,6 @@
 {
   "name": "@poa/state",
-  "version": "5.0.0-beta12",
+  "version": "5.0.0-beta13",
   "description": "Poa — opinionated React framework",
   "private": false,
   "license": "MIT",
@@ -17,8 +17,8 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/router": "^5.0.0-beta12",
-    "@poa/satcheljs": "^5.0.0-beta12",
+    "@poa/router": "^5.0.0-beta13",
+    "@poa/satcheljs": "^5.0.0-beta13",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5"
   },
