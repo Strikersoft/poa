@@ -1,6 +1,6 @@
 {
   "name": "@poa/router",
-  "version": "5.0.0-prerelease",
+  "version": "5.0.0",
   "description": "Poa — opinionated React framework",
   "private": false,
   "license": "MIT",
@@ -17,8 +17,8 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/satcheljs": "^5.0.0-prerelease",
-    "@poa/state": "^5.0.0-prerelease",
+    "@poa/satcheljs": "^5.0.0",
+    "@poa/state": "^5.0.0",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "history": "^4.7.2",
