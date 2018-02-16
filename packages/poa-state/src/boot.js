@@ -15,13 +15,13 @@ export const initAction = createAction('@@INIT', () => ({}));
  */
 export async function boot(config, componentsInjector) {
   // initialize store
-  createInitialStore(config.state.initial);
+  const store = createInitialStore(config.state.initial);
 
   // save actions
-  setActions(config.state.actions);
+  const actions = setActions(config.state.actions);
 
   // save environment
-  setEnv(config.env);
+  const env = setEnv(config.env);
 
   // inject store, actions and environment to all registered components
   componentsInjector(component => {
@@ -35,4 +35,6 @@ export async function boot(config, componentsInjector) {
   getMiddlewares().forEach(middleware => applyMiddleware(middleware(getStore())));
 
   await initAction();
+
+  return { store, actions, env };
 }

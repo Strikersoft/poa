@@ -1,6 +1,7 @@
 // @ts-check
 
 import { __resetGlobalContext } from '@poa/satcheljs';
+import { computed } from 'mobx';
 
 let currentStore = {};
 let currentEnvironment = {};
@@ -14,6 +15,7 @@ let middlewares = [];
  */
 export function setEnv(newEnv) {
   currentEnvironment = newEnv;
+  return getEnv();
 }
 
 /**
@@ -48,6 +50,7 @@ export function getStore() {
  */
 export function setActions(newActions) {
   currentActions = newActions;
+  return getActions();
 }
 
 /**
@@ -73,6 +76,13 @@ export function addMiddleware(...mds) {
  */
 export function getMiddlewares() {
   return middlewares;
+}
+
+/**
+ * Wrapper over computed to provide store
+ */
+export function selector(fn) {
+  return computed(() => fn(getStore()));
 }
 
 export function resetGlobals() {

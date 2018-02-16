@@ -22,10 +22,13 @@ export async function boot(config) {
   await i18nBoot(config.i18n, injectPropertyToAllComponents);
 
   // initialize state (await on all initialAction subscribers)
-  await stateBoot(configWithDefaults, injectPropertyToAllComponents);
+  const { store, actions, env } = await stateBoot(
+    configWithDefaults,
+    injectPropertyToAllComponents
+  );
 
   // initialize router
-  const { router } = await routerBoot(configWithDefaults.router);
+  const { router } = await routerBoot(configWithDefaults.router, { store, actions, env });
 
   // render main application
   await render(<PoaApp router={router} />, configWithDefaults.react.htmlNode);
