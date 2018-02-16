@@ -2,6 +2,10 @@
   "name": "@poa/router",
   "version": "5.0.0",
   "description": "Poa — opinionated React framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Strikersoft/poa.git"
+  },
   "private": false,
   "license": "MIT",
   "main": "dist/router.js",

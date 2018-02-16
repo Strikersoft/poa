@@ -2,6 +2,10 @@
   "name": "@poa/satcheljs",
   "version": "5.0.0",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Strikersoft/poa.git"
+  },
   "license": "MIT",
   "main": "dist/satcheljs.js",
   "module": "dist/satcheljs.es.js",
