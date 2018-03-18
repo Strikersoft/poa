@@ -28,7 +28,11 @@ export async function boot(config) {
   );
 
   // initialize router
-  const { router } = await routerBoot(configWithDefaults.router, { store, actions, env });
+  const { router } = await routerBoot(
+    configWithDefaults.router,
+    { store, actions, env },
+    injectPropertyToAllComponents
+  );
 
   // render main application
   await render(<PoaApp router={router} />, configWithDefaults.react.htmlNode);

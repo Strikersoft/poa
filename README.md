@@ -30,7 +30,7 @@ Since it is a framework, not a library, it bundled with all needed stuff to crea
 
 ### Getting started
 
-We assumed that you are using some of official [starter kits](https://reactjs.org/community/starter-kits.html) (it should work with custom setup also).
+We are assuming that you're using some official [starter kit](https://reactjs.org/community/starter-kits.html) (though it should work with custom setup as well).
 
 TLDR; [https://codesandbox.io/s/yzzqk57lx](https://codesandbox.io/s/yzzqk57lx)
 
@@ -46,7 +46,7 @@ import { boot } from '@poa/core';
 boot();
 ```
 
-It should open dummy Poa screen.
+It should open a dummy Poa screen.
 
 #### Adding some routes
 

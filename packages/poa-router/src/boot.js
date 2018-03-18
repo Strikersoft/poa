@@ -33,9 +33,14 @@ export function getRouter() {
   return installedRouter;
 }
 
-export async function boot(config, injectionData = {}) {
+export async function boot(config, injectionData = {}, componentsInjector) {
   const routerConfig = createRouterInstallConfig(config, injectionData);
   installedRouter = installRouter(routerConfig);
+
+  // inject router to all registered components
+  componentsInjector(component => {
+    component.prototype.router = getRouter();
+  });
 
   await startRouter(installedRouter);
 
