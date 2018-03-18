@@ -1,6 +1,6 @@
 {
   "name": "@poa/core",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Poa — opinionated React framework",
   "repository": {
     "type": "git",
@@ -21,10 +21,10 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "@poa/i18n": "^5.0.0",
-    "@poa/router": "^5.0.0",
-    "@poa/satcheljs": "^5.0.0",
-    "@poa/state": "^5.0.0",
+    "@poa/i18n": "^5.0.1",
+    "@poa/router": "^5.0.1",
+    "@poa/satcheljs": "^5.0.1",
+    "@poa/state": "^5.0.1",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",
