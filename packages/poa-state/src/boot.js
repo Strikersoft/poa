@@ -3,7 +3,6 @@
 import { setEnv, setActions, getActions, getMiddlewares, getStore, getEnv } from './globals';
 import { createInitialStore, createAction } from './wrappers';
 import { applyMiddleware } from '@poa/satcheljs';
-import { getRouter } from '@poa/router';
 
 // Pre-built actions
 export const initAction = createAction('@@INIT', () => ({}));
@@ -28,7 +27,6 @@ export async function boot(config, componentsInjector) {
     component.prototype.store = getStore();
     component.prototype.actions = getActions();
     component.prototype.env = getEnv();
-    component.prototype.router = getRouter();
   });
 
   // apply middlewares
