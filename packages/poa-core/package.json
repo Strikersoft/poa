@@ -12,12 +12,13 @@
   "module": "dist/core.es.js",
   "jsnext:main": "dist/core.es.js",
   "umd:main": "dist/core.umd.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.js",
-    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.js"
+    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.ts",
+    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.ts"
   },
   "devDependencies": {
-    "microbundle": "0.4.3",
+    "microbundle": "0.4.4",
     "prettier": "^1.10.2"
   },
   "dependencies": {
@@ -25,6 +26,9 @@
     "@poa/router": "^5.0.2",
     "@poa/satcheljs": "^5.0.2",
     "@poa/state": "^5.0.2",
+    "@types/i18next": "^8.4.3",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
     "history": "^4.7.2",
     "mobx": "^3.4.1",
     "mobx-little-router": "^1.7.3",

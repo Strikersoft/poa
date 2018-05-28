@@ -1,15 +1,11 @@
-// @ts-check
-import React from 'react';
+import { PoaAppConfig, PoaRouterType } from './interfaces/app-config.interface';
+import { helloComponent } from './hello.component';
 
-function helloComponent() {
-  return <div>Jambo, jambo! Define your routes in {`boot({ routes: <here> })`}.</div>;
-}
-
-export function createDefaultConfig(config) {
+export function createDefaultConfig(config?: PoaAppConfig) {
   const defaultConfig = {
     react: { htmlNode: document.getElementById('root'), loadingComponent: null },
     router: {
-      type: 'browser',
+      type: PoaRouterType.Browser,
       routes: [
         {
           path: '',
@@ -21,6 +17,7 @@ export function createDefaultConfig(config) {
       initial: {},
       actions: {}
     },
+    i18n: {},
     env: {}
   };
 

@@ -1,10 +1,9 @@
-// @ts-check
-
 import { observer } from 'mobx-react';
 import { addComponentToRegistry } from './repository';
+import { PoaComponentConfig } from './interfaces/component-config.interface';
 
-export function Component(config) {
-  return function PoaComponent(constructor) {
+export function Component(config: PoaComponentConfig) {
+  return function PoaComponent(constructor: any) {
     addComponentToRegistry(constructor);
 
     if (config && config.namespaces) {

@@ -25,6 +25,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@poa/core": "^5.0.2",
     "@poa/router": "^5.0.2",
     "@types/i18next": "^8.4.3",
     "i18next": "^10.3.0"

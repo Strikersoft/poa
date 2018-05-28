@@ -21,6 +21,7 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
+    "@poa/core": "^5.0.2",
     "@poa/router": "^5.0.2",
     "@poa/satcheljs": "^5.0.2",
     "mobx": "^3.4.1",

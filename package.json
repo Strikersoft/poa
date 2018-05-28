@@ -28,7 +28,7 @@
     "build:satcheljs": "cd packages/poa-satcheljs && npm run build",
     "build:i18n": "cd packages/poa-i18n && npm run build"
   },
-  "workspaces": ["packages/*"],
+  "workspaces": ["packages/*", "examples/*"],
   "prettier": {
     "printWidth": 100,
     "singleQuote": true

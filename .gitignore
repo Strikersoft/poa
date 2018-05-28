@@ -19,6 +19,7 @@ dist
 node_modules
 coverage
 .nyc_output
+.rpt2_cache
 
 
 __old_examples__
