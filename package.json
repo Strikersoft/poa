@@ -6,39 +6,34 @@
     "type": "git",
     "url": "https://github.com/Strikersoft/poa.git"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "bootstrap": "npm run clean:all && npm run && lerna bootstrap",
-    "clean": "lerna run clean",
-    "clean:all": "lerna clean --yes && yarn clean",
-    "publish": "npm run build && lerna publish --silent --registry=https://registry.npmjs.org/",
-    "publish:canary":
-      "npm run build && lerna publish --npm-tag=canary --silent --registry=https://registry.npmjs.org/",
-    "start":
-      "npm run bootstrap && npm-run-all --parallel start:core start:router start:state start:satcheljs start:i18n",
-    "start:core": "cd packages/poa-core && npm run watch",
-    "start:router": "cd packages/poa-router && npm run watch",
-    "start:state": "cd packages/poa-state && npm run watch",
-    "start:satcheljs": "cd packages/poa-satcheljs && npm run watch",
-    "start:i18n": "cd packages/poa-i18n && npm run watch",
-    "build":
-      "npm run bootstrap && npm-run-all --parallel build:core build:router build:state build:satcheljs build:i18n",
-    "build:core": "cd packages/poa-core && npm run build",
-    "build:router": "cd packages/poa-router && npm run build",
-    "build:state": "cd packages/poa-state && npm run build",
-    "build:satcheljs": "cd packages/poa-satcheljs && npm run build",
-    "build:i18n": "cd packages/poa-i18n && npm run build"
+    "bootstrap": "lerna bootstrap",
+    "test": "lerna run test",
+    "start": "run-p start:core start:i18n start:router start:satcheljs start:state",
+    "start:core": "cd packages/poa-core && yarn watch",
+    "start:i18n": "cd packages/poa-i18n && yarn watch",
+    "start:router": "cd packages/poa-router && yarn watch",
+    "start:satcheljs": "cd packages/poa-satcheljs && yarn watch",
+    "start:state": "cd packages/poa-state && yarn watch",
+    "prepare": "lerna run prepare"
   },
-  "workspaces": ["packages/*", "examples/*"],
   "prettier": {
     "printWidth": 100,
     "singleQuote": true
   },
   "devDependencies": {
-    "lerna": "^2.7.0",
-    "npm-run-all": "^4.1.2",
-    "prettier": "^1.10.2"
+    "@types/node": "10.3.0",
+    "lerna": "2.11.0",
+    "prettier": "1.13.4",
+    "typescript": "2.9.1"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.3"
   }
 }

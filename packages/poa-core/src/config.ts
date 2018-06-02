@@ -1,7 +1,7 @@
-import { PoaAppConfig, PoaRouterType } from './interfaces/app-config.interface';
+import { PoaAppConfig, PoaAppBootConfig, PoaRouterType } from './interfaces/app-config.interface';
 import { helloComponent } from './hello.component';
 
-export function createDefaultConfig(config?: PoaAppConfig) {
+export function createDefaultConfig(config?: PoaAppBootConfig): PoaAppConfig {
   const defaultConfig = {
     react: { htmlNode: document.getElementById('root'), loadingComponent: null },
     router: {
@@ -18,7 +18,11 @@ export function createDefaultConfig(config?: PoaAppConfig) {
       actions: {}
     },
     i18n: {},
-    env: {}
+    env: {},
+    hooks: {
+      configureI18Next: () => Promise.resolve(),
+      configureAppInstance: () => Promise.resolve()
+    }
   };
 
   return Object.assign({}, defaultConfig, config);

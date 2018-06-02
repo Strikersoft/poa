@@ -12,32 +12,37 @@
   "module": "dist/core.es.js",
   "jsnext:main": "dist/core.es.js",
   "umd:main": "dist/core.umd.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/poa-core/src/index.d.ts",
   "scripts": {
-    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.ts",
+    "prepare": "microbundle build --external=all --jsx=React.createElement --entry=src/index.ts",
     "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.ts"
   },
   "devDependencies": {
+    "@types/jest": "^23.1.0",
+    "jest": "^23.1.0",
     "microbundle": "0.4.4",
-    "prettier": "^1.10.2"
+    "ts-jest": "^22.4.6"
   },
   "dependencies": {
-    "@poa/i18n": "^5.0.2",
-    "@poa/router": "^5.0.2",
-    "@poa/satcheljs": "^5.0.2",
-    "@poa/state": "^5.0.2",
-    "@types/i18next": "^8.4.3",
-    "@types/react": "^16.3.14",
-    "@types/react-dom": "^16.0.5",
-    "history": "^4.7.2",
-    "mobx": "^3.4.1",
-    "mobx-little-router": "^1.7.3",
-    "mobx-little-router-react": "^1.7.3",
-    "mobx-react": "^4.3.5"
+    "@poa/i18n": "5.0.2",
+    "@poa/router": "5.0.2",
+    "@poa/satcheljs": "5.0.2",
+    "@poa/state": "5.0.2",
+    "@types/i18next": "8.4.3",
+    "@types/react": "16.3.16",
+    "@types/react-dom": "16.0.5",
+    "history": "4.7.2",
+    "mobx": "4.3.0",
+    "mobx-little-router": "1.7.4",
+    "mobx-little-router-react": "1.7.5",
+    "mobx-react": "^4.3.5",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "tslib": "^1.9.2"
   },
   "peerDependencies": {
-    "react": "16.1.x",
-    "react-dom": "16.1.x"
+    "react": "x.x.x",
+    "react-dom": "x.x.x"
   },
   "prettier": {
     "printWidth": 100,
@@ -45,5 +50,22 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "modulePaths": [
+      "../../node_modules"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

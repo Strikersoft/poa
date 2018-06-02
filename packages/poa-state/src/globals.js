@@ -1,95 +1,59 @@
-// @ts-check
-
-import { __resetGlobalContext } from '@poa/satcheljs';
-import { computed } from 'mobx';
-
-let currentStore = {};
-let currentEnvironment = {};
-let currentActions = {};
-let middlewares = [];
-
-/**
- * Set new environment to globals
- * @private
- * @param {*} newEnv
- */
-export function setEnv(newEnv) {
-  currentEnvironment = newEnv;
-  return getEnv();
+"use strict";
+exports.__esModule = true;
+var satcheljs_1 = require("@poa/satcheljs");
+var mobx_1 = require("mobx");
+var currentStore = {};
+var currentEnvironment = {};
+var currentActions = {};
+var middlewares = [];
+function setEnv(newEnv) {
+    currentEnvironment = newEnv;
+    return getEnv();
 }
-
-/**
- * Get current environment
- * @private
- */
-export function getEnv() {
-  return currentEnvironment;
+exports.setEnv = setEnv;
+function getEnv() {
+    return currentEnvironment;
 }
-
-/**
- * Set new store to globals
- * @private
- * @param {*} newStore
- */
-export function setStore(newStore) {
-  currentStore = newStore;
+exports.getEnv = getEnv;
+function setStore(newStore) {
+    currentStore = newStore;
 }
-
-/**
- * Get current store
- * @private
- */
-export function getStore() {
-  return currentStore;
+exports.setStore = setStore;
+function getStore() {
+    return currentStore;
 }
-
-/**
- * Set new actions to globals
- * @private
- * @param {*} newActions
- */
-export function setActions(newActions) {
-  currentActions = newActions;
-  return getActions();
+exports.getStore = getStore;
+function setActions(newActions) {
+    currentActions = newActions;
+    return getActions();
 }
-
-/**
- * Get current actions
- * @private
- */
-export function getActions() {
-  return currentActions;
+exports.setActions = setActions;
+function getActions() {
+    return currentActions;
 }
-
-/**
- * Middlewares to apply
- * @private
- * @param {Array} mds middlewares
- */
-export function addMiddleware(...mds) {
-  middlewares.push(...mds);
+exports.getActions = getActions;
+function addMiddleware() {
+    var mds = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        mds[_i] = arguments[_i];
+    }
+    middlewares.push.apply(middlewares, mds);
 }
-
-/**
- * Get middlewares
- * @private
- */
-export function getMiddlewares() {
-  return middlewares;
+exports.addMiddleware = addMiddleware;
+function getMiddlewares() {
+    return middlewares;
 }
-
-/**
- * Wrapper over computed to provide store
- */
-export function selector(fn) {
-  return computed(() => fn(getStore()));
+exports.getMiddlewares = getMiddlewares;
+function selector(fn) {
+    return mobx_1.computed(function () { return fn(getStore()); });
 }
-
-export function resetGlobals() {
-  setActions({});
-  setStore({});
-  setEnv({});
-
-  middlewares = [];
-  __resetGlobalContext();
+exports.selector = selector;
+function resetGlobals() {
+    setActions({});
+    setStore({});
+    setEnv({});
+    middlewares = [];
+    satcheljs_1.__resetGlobalContext();
 }
+exports.resetGlobals = resetGlobals;
+//# sourceMappingURL=globals.js.map

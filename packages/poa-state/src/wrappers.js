@@ -1,54 +1,32 @@
-// @ts-check
-
-import { setStore, getStore, getActions, getEnv } from './globals';
-import { createStore, asyncAction, mutator, orchestrator } from '@poa/satcheljs';
-import { getRouter } from '@poa/router';
-
-/**
- * Used to initialize SatchelJS store, and save at as global
- * @private
- * @param {*} state
- */
-export function createInitialStore(state) {
-  setStore(createStore('poaStore', state)());
-  return getStore();
+"use strict";
+exports.__esModule = true;
+var globals_1 = require("./globals");
+var satcheljs_1 = require("@poa/satcheljs");
+var router_1 = require("@poa/router");
+function createInitialStore(state) {
+    globals_1.setStore(satcheljs_1.createStore('poaStore', state)());
+    return globals_1.getStore();
 }
-
-/**
- * Creates new action in systems
- * @public
- * @param {*} actionType
- * @param {*} target
- */
-export function createAction(actionType, target) {
-  return asyncAction(actionType, target);
+exports.createInitialStore = createInitialStore;
+function createAction(actionType, target) {
+    return satcheljs_1.asyncAction(actionType, target);
 }
-
-/**
- * Add mutation to action
- * @public
- * @param {*} actionCreator
- * @param {*} target
- */
-export function addMutator(actionCreator, target) {
-  return mutator(actionCreator, actionMessage => {
-    target(actionMessage, { store: getStore() });
-  });
-}
-
-/**
- * Add side effects to action
- * @public
- * @param {*} actionCreator
- * @param {*} target
- */
-export function addSideEffects(actionCreator, target) {
-  return orchestrator(actionCreator, actionMessage => {
-    return target(actionMessage, {
-      actions: getActions(),
-      env: getEnv(),
-      store: getStore(),
-      router: getRouter()
+exports.createAction = createAction;
+function addMutator(actionCreator, target) {
+    return satcheljs_1.mutator(actionCreator, function (actionMessage) {
+        target(actionMessage, { store: globals_1.getStore() });
     });
-  });
 }
+exports.addMutator = addMutator;
+function addSideEffects(actionCreator, target) {
+    return satcheljs_1.orchestrator(actionCreator, function (actionMessage) {
+        return target(actionMessage, {
+            actions: globals_1.getActions(),
+            env: globals_1.getEnv(),
+            store: globals_1.getStore(),
+            router: router_1.getRouter()
+        });
+    });
+}
+exports.addSideEffects = addSideEffects;
+//# sourceMappingURL=wrappers.js.map

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@poa/i18n": ["./poa-i18n/src"],
+      "@poa/core": ["./poa-core/src"],
+      "@poa/router": ["./poa-router/src"],
+      "@poa/satcheljs": ["./poa-satcheljs/src"],
+      "@poa/state": ["./poa-state/src"]
+    }
+  }
+}

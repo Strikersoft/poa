@@ -1,9 +1,18 @@
-const registry: string[] = [];
+/**
+ * Registry of all poa components
+ * Allowed to inject some propoerty to components and add some components to registry
+ *
+ * @export
+ * @class ComponentsInjector
+ */
+export class ComponentsInjector {
+  private static registry: any[] = [];
 
-export function addComponentToRegistry(component: any) {
-  registry.push(component);
-}
+  public static injectPropertyToAllComponents(callback: any) {
+    ComponentsInjector.registry.forEach(callback);
+  }
 
-export function injectPropertyToAllComponents(callback: any) {
-  registry.forEach(callback);
+  public static addComponentToRegistry(component: any) {
+    ComponentsInjector.registry.push(component);
+  }
 }

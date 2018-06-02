@@ -1,9 +1,5 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "target": "es2015",
-    "declaration": true,
-    "jsx": "react",
-    "lib": ["dom", "es6"]
-  }
+  "extends": "../../tsconfig.json",
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

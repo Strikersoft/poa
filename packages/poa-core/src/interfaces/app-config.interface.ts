@@ -1,4 +1,4 @@
-import { InitOptions } from 'i18next';
+import { InitOptions, i18n, TranslationFunction } from 'i18next';
 
 export interface PoaRouteConfig {
   path: string;
@@ -7,16 +7,18 @@ export interface PoaRouteConfig {
 
 export enum PoaRouterType {
   Browser = 'browser',
-  Hash = 'hash'
+  Hash = 'hash',
+  Memory = 'memory'
 }
 
 export interface PoaRouterConfig {
   type: PoaRouterType;
-  routes?: PoaRouteConfig[];
+  context?: Function;
+  routes: PoaRouteConfig[];
 }
 
 export interface PoaReactConfig {
-  htmlNode?: HTMLElement | null;
+  htmlNode: HTMLElement | null;
   loadingComponent?: any;
 }
 
@@ -25,10 +27,56 @@ export interface PoaStateConfig {
   actions: any;
 }
 
-export interface PoaAppConfig {
+export interface PoaAppBootConfig {
   react?: PoaReactConfig;
   router?: PoaRouterConfig;
   state?: PoaStateConfig;
   i18n?: InitOptions;
   env?: any;
+
+  hooks?: {
+    configureI18Next?: (
+      {
+        i18next,
+        t
+      }: {
+        i18next: i18n;
+        t: TranslationFunction;
+      }
+    ) => Promise<any>;
+    configureAppInstance?: (
+      {
+        poaAppInstance
+      }: {
+        poaAppInstance: any;
+      }
+    ) => Promise<any>;
+  };
+}
+
+export interface PoaAppConfig {
+  react: PoaReactConfig;
+  router: PoaRouterConfig;
+  state: PoaStateConfig;
+  i18n: InitOptions;
+  env: any;
+
+  hooks: {
+    configureI18Next: (
+      {
+        i18next,
+        t
+      }: {
+        i18next: i18n;
+        t: TranslationFunction;
+      }
+    ) => Promise<any>;
+    configureAppInstance: (
+      {
+        poaAppInstance
+      }: {
+        poaAppInstance: any;
+      }
+    ) => Promise<any>;
+  };
 }

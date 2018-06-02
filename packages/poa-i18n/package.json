@@ -12,23 +12,26 @@
   "module": "dist/i18n.es.js",
   "jsnext:main": "dist/i18n.es.js",
   "umd:main": "dist/i18n.umd.js",
+  "types": "dist/poa-i18n/src/index.d.ts",
   "scripts": {
-    "build": "microbundle build --external=all --jsx=React.createElement --entry=src/index.js",
-    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.js"
+    "prepare": "microbundle build --external=all --jsx=React.createElement --entry=src/index.ts",
+    "watch": "microbundle watch --external=all --jsx=React.createElement --entry=src/index.ts"
   },
   "devDependencies": {
-    "microbundle": "0.4.3",
-    "prettier": "^1.10.2"
+    "microbundle": "0.4.4"
   },
   "prettier": {
     "printWidth": 100,
     "singleQuote": true
   },
   "dependencies": {
-    "@poa/core": "^5.0.2",
-    "@poa/router": "^5.0.2",
-    "@types/i18next": "^8.4.3",
-    "i18next": "^10.3.0"
+    "@poa/core": "5.0.2",
+    "@poa/router": "5.0.2",
+    "@types/i18next": "8.4.3",
+    "i18next": "10.3.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "tslib": "1.9.2"
   },
   "publishConfig": {
     "access": "public"

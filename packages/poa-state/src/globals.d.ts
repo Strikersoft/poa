@@ -1,0 +1,12 @@
+import { IComputedValue } from 'mobx';
+export { IComputedValue } from 'mobx';
+export declare function setEnv(newEnv: any): {};
+export declare function getEnv(): {};
+export declare function setStore(newStore: any): void;
+export declare function getStore(): {};
+export declare function setActions(newActions: any): {};
+export declare function getActions(): {};
+export declare function addMiddleware(...mds: any[]): void;
+export declare function getMiddlewares(): any[];
+export declare function selector(fn: (store: any) => any): IComputedValue<any>;
+export declare function resetGlobals(): void;
