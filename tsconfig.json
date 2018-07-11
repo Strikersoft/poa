@@ -12,7 +12,8 @@
     "importHelpers": true,
     "noEmitHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "experimentalDecorators": false
   },
   "exclude": ["src/*.spec.ts", "lib", "node_modules", "examples"]
 }

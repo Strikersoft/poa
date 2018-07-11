@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouterProvider, Outlet } from 'mobx-little-router-react';
+import { RouterContext, Outlet } from 'mobx-little-router-react';
 
 export interface PoaAppProps {
   router: any;
@@ -8,9 +8,9 @@ export interface PoaAppProps {
 export class PoaApp extends React.Component<PoaAppProps> {
   render() {
     return (
-      <RouterProvider router={this.props.router}>
+      <RouterContext.Provider value={this.props.router}>
         <Outlet />
-      </RouterProvider>
+      </RouterContext.Provider>
     );
   }
 }

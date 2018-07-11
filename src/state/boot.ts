@@ -8,7 +8,6 @@ export namespace StateBoot {
   /**
    * @private
    * @param {*} config
-   * @param {*} componentsInjector
    */
   export async function boot(config: PoaAppConfig) {
     // initialize store

@@ -1,0 +1,12 @@
+src
+examples
+coverage
+.vscode
+node_modules
+jest*
+.prettierignore
+prettier*
+README.md
+tsconfig*
+tslint*
+yarn*
