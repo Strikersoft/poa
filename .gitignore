@@ -66,3 +66,4 @@ typings/
 
 lib/
 examples
+.DS_Store
