@@ -1,5 +1,8 @@
 {
-  "private": true,
+  "name": "poa",
+  "version": "6.0.0",
+  "license": "MIT",
+  "main": "src/index.ts",
   "scripts": {
     "prepare": "npm run test",
     "watch": "tsc -w",
