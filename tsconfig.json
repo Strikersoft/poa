@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib",
+    "outDir": "./",
     "target": "es5",
     "jsx": "react",
     "lib": ["dom", "es6", "es2016.array.include"],
@@ -15,5 +15,15 @@
     "noUnusedParameters": true,
     "experimentalDecorators": false
   },
-  "exclude": ["src/*.spec.ts", "lib", "node_modules", "examples"]
+  "exclude": [
+    "src/*.spec.ts",
+    "core",
+    "i18n",
+    "router",
+    "satcheljs",
+    "state",
+    "utils",
+    "node_modules",
+    "examples"
+  ]
 }

@@ -1,4 +1,14 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["lib", "node_modules", "examples"]
+  "exclude": [
+    "lib",
+    "node_modules",
+    "core",
+    "i18n",
+    "router",
+    "satcheljs",
+    "state",
+    "utils",
+    "examples"
+  ]
 }

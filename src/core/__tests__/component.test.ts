@@ -1,4 +1,4 @@
-import { Component } from '../component';
+import { PoaComponent } from '../component';
 import { PoaComponentConfig } from '../interfaces/component-config.interface';
 import { ComponentsInjector } from '../repository';
 
@@ -6,7 +6,7 @@ describe('CORE — Component decorator (HOC)', () => {
   it(`works without providing config`, () => {
     function componentToWrap() {}
 
-    const result = Component()(componentToWrap);
+    const result = PoaComponent()(componentToWrap);
 
     expect(result).toBeTruthy();
   });
@@ -14,7 +14,7 @@ describe('CORE — Component decorator (HOC)', () => {
   it(`wraps into observer`, () => {
     function componentToWrap() {}
 
-    const result = Component()(componentToWrap);
+    const result = PoaComponent()(componentToWrap);
 
     expect(result.isMobXReactObserver).toBeTruthy();
   });
@@ -26,7 +26,7 @@ describe('CORE — Component decorator (HOC)', () => {
     };
     function componentToWrap() {}
 
-    Component(config)(componentToWrap);
+    PoaComponent(config)(componentToWrap);
 
     expect(componentToWrap.prototype.tNamespaces).toEqual(namespacedToBeInjected);
   });
@@ -34,7 +34,7 @@ describe('CORE — Component decorator (HOC)', () => {
   it(`does not inject 'tNamespaces' into component prototype without config`, () => {
     function componentToWrap() {}
 
-    Component()(componentToWrap);
+    PoaComponent()(componentToWrap);
 
     expect(componentToWrap.prototype.tNamespaces).toEqual(undefined);
   });
@@ -43,7 +43,7 @@ describe('CORE — Component decorator (HOC)', () => {
     function componentToWrap() {}
     ComponentsInjector.addComponentToRegistry = jest.fn().mockImplementationOnce(() => {});
 
-    Component()(componentToWrap);
+    PoaComponent()(componentToWrap);
 
     expect(ComponentsInjector.addComponentToRegistry).toBeCalled();
   });

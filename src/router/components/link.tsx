@@ -10,7 +10,7 @@ export interface LinkProps {
   children?: any;
   exact?: boolean;
   target?: string;
-  onClick: Function;
+  onClick?: Function;
 }
 
 /**

@@ -1,5 +1,5 @@
 export { boot } from './boot';
-export { Component } from './component';
+export { PoaComponent } from './component';
 export { ComponentsInjector } from './repository';
 
 // re-export main interfaces

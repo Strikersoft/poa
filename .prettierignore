@@ -2,3 +2,12 @@
 lib
 coverage
 examples
+core
+i18n
+router
+satcheljs
+state
+utils
+index.js
+index.d.ts
+index.js.map

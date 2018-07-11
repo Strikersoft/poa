@@ -1,12 +1,13 @@
 {
   "name": "poa",
-  "version": "6.0.0",
+  "version": "6.0.0-beta1",
   "license": "MIT",
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
-    "watch": "tsc -w",
+    "prepare": "npm run clean && npm run build",
+    "watch": "npm run clean && tsc -w",
+    "clean": "rimraf core coverage i18n router satcheljs state utils index.js index.js.map yarn-error.log",
     "test": "run-s types lint codestyle jest",
     "test:watch": "jest --watchAll --coverage false",
     "jest": "jest",

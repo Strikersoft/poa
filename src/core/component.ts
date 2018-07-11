@@ -1,15 +1,15 @@
-import { observer } from '../state/mobx-react';
+import { observer, IReactComponent } from '../state/mobx-react';
 import { ComponentsInjector } from './repository';
 import { PoaComponentConfig } from './interfaces/component-config.interface';
 
-export function Component(config?: PoaComponentConfig) {
-  return function PoaComponent(constructor: any) {
-    ComponentsInjector.addComponentToRegistry(constructor);
+export function PoaComponent(config?: PoaComponentConfig) {
+  return function InternalPoaComponent<T extends IReactComponent>(component: T) {
+    ComponentsInjector.addComponentToRegistry(component);
 
     if (config && config.namespaces) {
-      constructor.prototype.tNamespaces = config.namespaces;
+      component.prototype.tNamespaces = config.namespaces;
     }
 
-    return observer(constructor);
+    return observer(component);
   };
 }

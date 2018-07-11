@@ -67,3 +67,15 @@ typings/
 lib/
 examples
 .DS_Store
+
+## build
+index.js
+index.d.ts
+index.js.map
+
+core
+i18n
+router
+satcheljs
+state
+utils
