@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["dom", "es6", "es2016.array.include"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "declaration": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedParameters": true
+  },
+  "exclude": ["src/*.spec.ts", "lib", "node_modules", "examples"]
+}
