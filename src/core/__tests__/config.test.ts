@@ -28,7 +28,6 @@ describe('CORE — Config', () => {
       env: { test: 'value' }
     };
 
-    expect(createDefaultConfig(config).env).toHaveProperty('te123st');
-    // expect(createDefaultConfig(config)).toEqual(config);
+    expect(createDefaultConfig(config).env).toHaveProperty('test');
   });
 });

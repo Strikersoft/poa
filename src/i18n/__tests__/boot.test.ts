@@ -1,5 +1,5 @@
 import * as i18next from 'i18next';
-import { boot, createTranslator } from '../boot';
+import { I18NBoot } from '../boot';
 import { createDefaultConfig } from '../../core/config';
 import { ComponentsInjector } from '../../core';
 
@@ -10,7 +10,7 @@ describe(`I18N — Boot`, () => {
     (i18next as any).init = fakeI18NextInitFunction;
     const defaultConfig = createDefaultConfig();
 
-    await boot(defaultConfig);
+    await I18NBoot.boot(defaultConfig);
 
     expect(fakeI18NextInitFunction.mock.calls[0][0]).toEqual(defaultConfig.i18n);
 
@@ -24,7 +24,7 @@ describe(`I18N — Boot`, () => {
     (i18next as any).init = fakeI18NextInitFunction;
     const defaultConfig = createDefaultConfig();
 
-    await boot(defaultConfig);
+    await I18NBoot.boot(defaultConfig);
 
     expect(typeof fakeI18NextInitFunction.mock.calls[0][1]).toBe('function');
 
@@ -34,7 +34,7 @@ describe(`I18N — Boot`, () => {
   it(`returns translate function and i18next instance after boot`, async () => {
     const defaultConfig = createDefaultConfig();
 
-    const { t, i18next } = await boot(defaultConfig);
+    const { t, i18next } = await I18NBoot.boot(defaultConfig);
 
     expect(t).toBeDefined();
     expect(i18next).toBeDefined();
@@ -45,7 +45,7 @@ describe(`I18N — Boot`, () => {
     const defaultConfig = createDefaultConfig();
     ComponentsInjector.addComponentToRegistry(Component);
 
-    await boot(defaultConfig);
+    await I18NBoot.boot(defaultConfig);
 
     expect(Component.prototype).toHaveProperty('t');
     expect(typeof Component.prototype.t).toBe('function');
@@ -53,20 +53,20 @@ describe(`I18N — Boot`, () => {
     ComponentsInjector.registry = [];
   });
 
-  xit(`uses tNamespaces property from component prototype to create translator`, async () => {
+  it(`uses tNamespaces property from component prototype to create translator`, async () => {
     const Component = () => {};
     Component.prototype.tNamespaces = ['a', 'b', 'c'];
     const defaultConfig = createDefaultConfig();
     ComponentsInjector.addComponentToRegistry(Component);
     const fakeCreateTranslator = jest.fn();
-    const originalCreateTranslator = createTranslator;
+    const originalCreateTranslator = I18NBoot.createTranslator;
 
-    // createTranslator = fakeCreateTranslator;
-    await boot(defaultConfig);
+    I18NBoot.createTranslator = fakeCreateTranslator;
+    await I18NBoot.boot(defaultConfig);
 
     expect(fakeCreateTranslator.mock.calls[0][0]).toEqual(Component.prototype.tNamespaces);
 
     ComponentsInjector.registry = [];
-    // createTranslator = originalCreateTranslator;
+    I18NBoot.createTranslator = originalCreateTranslator;
   });
 });

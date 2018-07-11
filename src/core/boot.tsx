@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { RouterBoot, PoaApp } from '../router';
 import { StateBoot } from '../state';
-import { i18nBoot } from '../i18n';
+import { I18NBoot } from '../i18n';
 
 import { createDefaultConfig } from './config';
 import { PoaAppBootConfig } from './interfaces/app-config.interface';
@@ -18,7 +18,7 @@ export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig>
   }
 
   // initialize localication
-  const { t, i18next } = await i18nBoot.boot(config);
+  const { t, i18next } = await I18NBoot.boot(config);
 
   // add ability for end-user to configure i18next
   await config.hooks.configureI18Next({ t, i18next });
