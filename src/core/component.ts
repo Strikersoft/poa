@@ -3,7 +3,7 @@ import { ComponentsInjector } from './repository';
 import { PoaComponentConfig } from './interfaces/component-config.interface';
 
 export function PoaComponent(config?: PoaComponentConfig) {
-  return function InternalPoaComponent<T extends IReactComponent>(component: T) {
+  return function InternalPoaComponent<T extends IReactComponent>(component: T): T {
     ComponentsInjector.addComponentToRegistry(component);
 
     if (config && config.namespaces) {

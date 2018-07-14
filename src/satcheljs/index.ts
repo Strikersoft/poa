@@ -1,4 +1,4 @@
-import { configure } from 'mobx';
+import { configure } from '../state/mobx';
 
 export { action, actionCreator, asyncAction } from './actionCreator';
 export { default as applyMiddleware } from './applyMiddleware';

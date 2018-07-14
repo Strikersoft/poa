@@ -1,8 +1,22 @@
 import { InitOptions, i18n, TranslationFunction } from 'i18next';
+import { IReactComponent } from 'mobx-react';
 
-export interface PoaRouteConfig {
+export interface Route {
+  context: any;
+  [key: string]: any;
+}
+
+export interface Navigation {
+  redirectTo: (path: string) => any;
+  [key: string]: any;
+}
+
+export interface PoaRoutesConfig {
   path: string;
-  component: any;
+  component?: IReactComponent;
+  redirectTo?: string;
+  canActivate?: (route: Route, navigation: Navigation) => any,
+  willResolve?: (route: Route, navigation: Navigation) => Promise<any>
 }
 
 export enum PoaRouterType {
@@ -14,7 +28,7 @@ export enum PoaRouterType {
 export interface PoaRouterConfig {
   type: PoaRouterType;
   context?: Function;
-  routes: PoaRouteConfig[];
+  routes: PoaRoutesConfig[];
 }
 
 export interface PoaReactConfig {

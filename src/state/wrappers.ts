@@ -1,6 +1,6 @@
 import { setStore, getStore, getActions, getEnv } from './globals';
 import { createStore, asyncAction, mutator, orchestrator } from '../satcheljs';
-import { RouterBoot } from '../router';
+import { RouterBoot } from '../router/boot';
 import ActionMessage from '../satcheljs/interfaces/ActionMessage';
 import ActionCreator from '../satcheljs/interfaces/ActionCreator';
 

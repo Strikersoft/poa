@@ -1,4 +1,4 @@
-import { observable, ObservableMap } from 'mobx';
+import { observable, ObservableMap } from '../state/mobx';
 import ActionMessage from './interfaces/ActionMessage';
 import DispatchFunction from './interfaces/DispatchFunction';
 import Subscriber from './interfaces/Subscriber';
@@ -8,7 +8,7 @@ const schemaVersion = 3;
 // Interfaces for Global Context
 export interface GlobalContext {
   schemaVersion: number;
-  rootStore: ObservableMap<any>;
+  rootStore: ObservableMap;
   nextActionId: number;
   subscriptions: { [key: string]: Subscriber<ActionMessage>[] };
   dispatchWithMiddleware: DispatchFunction | null;

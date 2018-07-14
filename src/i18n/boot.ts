@@ -1,5 +1,6 @@
 import * as i18next from 'i18next';
-import { PoaAppConfig, ComponentsInjector } from '../core';
+import { ComponentsInjector } from '../core/repository';
+import { PoaAppConfig } from '../core';
 
 export namespace I18NBoot {
   export interface PoaI18NextBootResult {

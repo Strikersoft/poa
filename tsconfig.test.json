@@ -1,14 +1,8 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": [
-    "lib",
-    "node_modules",
-    "core",
-    "i18n",
-    "router",
-    "satcheljs",
-    "state",
-    "utils",
-    "examples"
-  ]
+  "compilerOptions": {
+    "lib": ["dom", "esnext"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
 }

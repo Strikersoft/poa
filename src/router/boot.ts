@@ -1,4 +1,3 @@
-import { PoaAppConfig, ComponentsInjector } from '../core';
 import {
   createBrowserHistory,
   createHashHistory,
@@ -7,14 +6,15 @@ import {
   History
 } from 'history';
 import { install } from 'mobx-little-router-react';
-import { PoaRouteConfig } from '../core/interfaces/app-config.interface';
+import { PoaRoutesConfig, PoaAppConfig } from '../core/interfaces/app-config.interface';
+import { ComponentsInjector } from '../core/repository';
 
 export { History, MemoryHistory } from 'history';
 
 export namespace RouterBoot {
   interface MobxLittleRouterConfig {
     history: History | MemoryHistory;
-    routes: PoaRouteConfig[];
+    routes: PoaRoutesConfig[];
     getContext: Function;
   }
 

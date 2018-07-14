@@ -1,7 +1,7 @@
 import * as i18next from 'i18next';
 import { I18NBoot } from '../boot';
 import { createDefaultConfig } from '../../core/config';
-import { ComponentsInjector } from '../../core';
+import { ComponentsInjector } from '../../core/repository';
 
 describe(`I18N — Boot`, () => {
   it(`invoke i18next.init with config`, async () => {

@@ -1,8 +1,9 @@
 import { setEnv, setActions, getActions, getMiddlewares, getStore, getEnv } from './globals';
 import { createInitialStore } from './wrappers';
 import { applyMiddleware } from '../satcheljs';
-import { PoaAppConfig, ComponentsInjector } from '../core';
 import { initAction } from './buildin-actions';
+import { PoaAppConfig } from '../core';
+import { ComponentsInjector } from '../core/repository';
 
 export namespace StateBoot {
   /**
