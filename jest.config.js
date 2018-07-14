@@ -22,5 +22,5 @@ module.exports = {
     '<rootDir>/utils'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  collectCoverage: false
+  collectCoverage: true
 };
