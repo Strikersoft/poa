@@ -5,7 +5,7 @@ import mutator from '../mutator';
 import orchestrator from '../orchestrator';
 import { mutatorAction } from '../simpleSubscribers';
 import createStore from '../createStore';
-import { useStrict } from '../';
+import { configureMobx } from '../';
 import * as mobx from '../../state/mobx';
 
 describe('satcheljs', () => {
@@ -94,8 +94,8 @@ describe('satcheljs', () => {
 
   it('exports useStrict from mobx', () => {
     spyOn(mobx, 'configure');
-    useStrict(true);
-    useStrict();
+    configureMobx(true);
+    configureMobx();
     expect(mobx.configure).toBeCalled();
   });
 });

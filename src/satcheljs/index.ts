@@ -11,6 +11,6 @@ export { mutatorAction, orchestratorAction } from './simpleSubscribers';
 
 export { __resetGlobalContext } from './globalContext';
 
-export function useStrict(enforceActions: boolean | 'strict' = 'strict') {
-  configure({ enforceActions });
+export function configureMobx(enforceActions: boolean | 'strict' = 'strict') {
+  configure({ enforceActions, isolateGlobalState: true });
 }

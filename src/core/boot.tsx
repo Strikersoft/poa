@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { boot as routerBoot, PoaApp } from '../router';
-import { StateBoot } from '../state';
+import { boot as stateBoot } from '../state';
 import { boot as i18nBoot } from '../i18n';
 
 import { createDefaultConfig } from './config';
@@ -24,7 +24,7 @@ export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig>
   await config.hooks.configureI18Next({ t, i18next });
 
   // initialize state (await on all initialAction subscribers)
-  const { store, actions, env } = await StateBoot.boot(config);
+  const { store, actions, env } = await stateBoot(config);
 
   // initialize router
   const { router } = await routerBoot(config, { store, actions, env });

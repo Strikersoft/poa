@@ -1,39 +1,40 @@
 import { setEnv, setActions, getActions, getMiddlewares, getStore, getEnv } from './globals';
 import { createInitialStore } from './wrappers';
-import { applyMiddleware } from '../satcheljs';
+import { applyMiddleware, configureMobx } from '../satcheljs';
 import { initAction } from './buildin-actions';
 import { PoaAppConfig } from '../core';
 import { ComponentsInjector } from '../core/repository';
 
-export namespace StateBoot {
-  /**
-   * @private
-   * @param {*} config
-   */
-  export async function boot(config: PoaAppConfig) {
-    // initialize store
-    const store = createInitialStore(config.state.initial);
+/**
+ * @private
+ * @param {*} config
+ */
+export async function boot(config: PoaAppConfig) {
+  // TODO: rethink not strict mode
+  configureMobx(false);
 
-    // save actions
-    const actions = setActions(config.state.actions);
+  // initialize store
+  const store = createInitialStore(config.state.initial);
 
-    // save environment
-    const env = setEnv(config.env);
+  // save actions
+  const actions = setActions(config.state.actions);
 
-    // inject store, actions and environment to all registered components
-    ComponentsInjector.injectPropertyToAllComponents((component: any) => {
-      component.prototype.store = getStore();
-      component.prototype.actions = getActions();
-      component.prototype.env = getEnv();
-    });
+  // save environment
+  const env = setEnv(config.env);
 
-    // apply middlewares
-    getMiddlewares().forEach((middleware: (store: any) => any) =>
-      applyMiddleware(middleware(getStore()))
-    );
+  // inject store, actions and environment to all registered components
+  ComponentsInjector.injectPropertyToAllComponents((component: any) => {
+    component.prototype.store = getStore();
+    component.prototype.actions = getActions();
+    component.prototype.env = getEnv();
+  });
 
-    await initAction();
+  // apply middlewares
+  getMiddlewares().forEach((middleware: (store: any) => any) =>
+    applyMiddleware(middleware(getStore()))
+  );
 
-    return { store, actions, env };
-  }
+  await initAction();
+
+  return { store, actions, env };
 }
