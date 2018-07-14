@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CORE — Hello Component renders 1`] = `
+<div>
+  Jambo, jambo! Define your routes in 
+  boot({ routes: &lt;here&gt; })
+  .
+</div>
+`;

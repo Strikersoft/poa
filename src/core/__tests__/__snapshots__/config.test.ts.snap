@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CORE — Config creates config without arguments 1`] = `
+Object {
+  "env": Object {},
+  "hooks": Object {
+    "configureAppInstance": [Function],
+    "configureI18Next": [Function],
+  },
+  "i18n": Object {},
+  "react": Object {
+    "htmlNode": null,
+    "loadingComponent": null,
+  },
+  "router": Object {
+    "routes": Array [
+      Object {
+        "component": [Function],
+        "path": "",
+      },
+    ],
+    "type": "browser",
+  },
+  "state": Object {
+    "actions": Object {},
+    "initial": Object {},
+  },
+}
+`;
+
+exports[`CORE — Config merges defaultConfig with condig provided as argument 1`] = `
+Object {
+  "env": Object {
+    "test": Object {},
+  },
+  "hooks": Object {
+    "configureAppInstance": [Function],
+    "configureI18Next": [Function],
+  },
+  "i18n": Object {},
+  "react": Object {
+    "htmlNode": Object {},
+    "loadingComponent": Object {},
+  },
+  "router": Object {
+    "routes": Array [],
+    "type": "memory",
+  },
+  "state": Object {
+    "actions": Object {
+      "the": "action",
+    },
+    "initial": Object {
+      "test": "value",
+    },
+  },
+}
+`;

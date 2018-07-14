@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": ".",
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["dom", "es2015"],
+    "sourceMap": true,
+    "strict": true,
+    "declaration": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": false
+  },
+  "exclude": ["src/**/*.test.ts", "node_modules"],
+  "include": ["src"]
+}
