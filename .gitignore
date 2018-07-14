@@ -67,6 +67,7 @@ typings/
 lib/
 examples
 .DS_Store
+.vscode
 
 ## build
 index.js
