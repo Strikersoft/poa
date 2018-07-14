@@ -10,3 +10,4 @@ README.md
 tsconfig*
 tslint*
 yarn*
+__tests__

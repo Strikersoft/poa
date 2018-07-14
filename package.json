@@ -1,6 +1,6 @@
 {
   "name": "poa",
-  "version": "6.0.0-beta8",
+  "version": "6.0.0-beta9",
   "license": "MIT",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -44,7 +44,7 @@
     "tslint-config-prettier": "1.13.0",
     "tslint-eslint-rules": "5.3.1",
     "tslint-react": "3.6.0",
-    "typescript": "^3.0.0-rc"
+    "typescript": "3.0.0-rc"
   },
   "peerDependencies": {
     "react": "x.x.x",

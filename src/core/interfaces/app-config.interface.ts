@@ -15,8 +15,8 @@ export interface PoaRoutesConfig {
   path: string;
   component?: IReactComponent;
   redirectTo?: string;
-  canActivate?: (route: Route, navigation: Navigation) => any,
-  willResolve?: (route: Route, navigation: Navigation) => Promise<any>
+  canActivate?: (route: Route, navigation: Navigation) => any;
+  willResolve?: (route: Route, navigation: Navigation) => Promise<any>;
 }
 
 export enum PoaRouterType {
