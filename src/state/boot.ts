@@ -4,6 +4,7 @@ import { applyMiddleware, configureMobx } from '../satcheljs';
 import { initAction } from './buildin-actions';
 import { PoaAppConfig } from '../core';
 import { ComponentsInjector } from '../core/repository';
+import { lastActionMiddleware } from './middlewares/last-action.middleware';
 
 /**
  * @private
@@ -33,6 +34,8 @@ export async function boot(config: PoaAppConfig) {
   getMiddlewares().forEach((middleware: (store: any) => any) =>
     applyMiddleware(middleware(getStore()))
   );
+
+  applyMiddleware(lastActionMiddleware);
 
   await initAction();
 

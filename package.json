@@ -25,6 +25,7 @@
     "mobx-little-router": "2.0.0-4",
     "mobx-little-router-react": "2.0.0-4",
     "mobx-react": "5.2.3",
+    "raven-js": "^3.26.3",
     "tslib": "1.9.3"
   },
   "devDependencies": {

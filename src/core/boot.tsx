@@ -1,8 +1,10 @@
 import * as React from 'react';
+import * as Raven from 'raven-js';
 
-import { boot as routerBoot, PoaApp } from '../router';
+import { boot as routerBoot } from '../router';
 import { boot as stateBoot } from '../state';
 import { boot as i18nBoot } from '../i18n';
+import { PoaApp } from '../router';
 
 import { createDefaultConfig } from './config';
 import { PoaAppBootConfig } from './interfaces/app-config.interface';
@@ -11,6 +13,15 @@ import { render } from '../utils/dom';
 
 export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig> {
   const config = createDefaultConfig(userConfig);
+
+  // if application want to use Sentry
+  if (config.raven) {
+    const { dsn, version, ...rest } = config.raven;
+
+    Raven.config(dsn, { release: version || '1.0.0', ...rest });
+
+    config.env.raven = Raven;
+  }
 
   // if application have async bootstrap
   if (config.react.loadingComponent) {
@@ -29,11 +40,8 @@ export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig>
   // initialize router
   const { router } = await routerBoot(config, { store, actions, env });
 
-  // render main application
-  // FIXME: avoid this workaround with types
-  const App: any = PoaApp;
   // poa default root component
-  const AppInstance = <App router={router} />;
+  const AppInstance = <PoaApp router={router} />;
 
   // add ability to end-user to configure root app component
   // also pass poa app

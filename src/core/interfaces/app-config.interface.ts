@@ -1,5 +1,6 @@
 import { InitOptions, i18n, TranslationFunction } from 'i18next';
 import { IReactComponent } from 'mobx-react';
+import { RavenOptions } from 'raven-js';
 
 export interface Route {
   context: any;
@@ -41,12 +42,18 @@ export interface PoaStateConfig {
   actions: any;
 }
 
+export interface PoaRavenOptions extends RavenOptions {
+  dsn: string;
+  version: string;
+}
+
 export interface PoaAppBootConfig {
   react?: PoaReactConfig;
   router?: PoaRouterConfig;
   state?: PoaStateConfig;
   i18n?: InitOptions;
   env?: any;
+  raven?: PoaRavenOptions;
 
   hooks?: {
     configureI18Next?: (
@@ -73,6 +80,7 @@ export interface PoaAppConfig {
   router: PoaRouterConfig;
   state: PoaStateConfig;
   i18n: InitOptions;
+  raven?: PoaRavenOptions;
   env: any;
 
   hooks: {
