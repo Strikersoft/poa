@@ -7,3 +7,5 @@ export function createTranslator(dicts = [], t: TranslationFunction) {
 
   return translator;
 }
+
+export { TranslationFunction };

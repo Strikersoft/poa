@@ -11,7 +11,8 @@
     "noEmitHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
-    "experimentalDecorators": false
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "exclude": ["src/**/*.test.ts", "node_modules"],
   "include": ["src"]

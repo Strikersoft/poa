@@ -1,8 +1,10 @@
+import * as React from 'react';
 import * as i18next from 'i18next';
 import { boot } from '../boot';
 import * as translator from '../translator';
 import { createDefaultConfig } from '../../core/config';
 import { ComponentsInjector } from '../../core/repository';
+import { PoaComponent } from '../../core';
 
 describe(`I18N — Boot`, () => {
   it(`invoke i18next.init with config`, async () => {
@@ -53,6 +55,25 @@ describe(`I18N — Boot`, () => {
 
     ComponentsInjector.registry = [];
   });
+
+  // TODO: restore
+  // it(`can add ability to declare internal 't' function`, async () => {
+  //   @PoaComponent()
+  //   class MyComponent extends React.Component {
+  //     render() {
+  //       return this.t('1');
+  //     }
+  //   }
+  //   const defaultConfig = createDefaultConfig();
+  //   ComponentsInjector.addComponentToRegistry(MyComponent);
+
+  //   await boot(defaultConfig);
+
+  //   expect(MyComponent.prototype).toHaveProperty('t');
+  //   expect(typeof MyComponent.prototype.t).toBe('function');
+
+  //   ComponentsInjector.registry = [];
+  // });
 
   it(`uses tNamespaces property from component prototype to create translator`, async () => {
     const Component = () => {};
