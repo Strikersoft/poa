@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouterContext, Outlet } from 'mobx-little-router-react';
-import { PoaComponent } from '../core';
+import { PoaComponent } from '../core/component';
 import { RavenStatic } from 'raven-js';
 import { getLastAction } from '../state/middlewares/last-action.middleware';
 
