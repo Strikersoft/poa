@@ -8,7 +8,8 @@ export interface PoaAppProps {
   router: any;
 }
 
-class PoaApp extends React.Component<PoaAppProps> {
+@PoaComponent()
+export class PoaApp extends React.Component<PoaAppProps> {
   localState = {
     isFatalError: false
   };
@@ -42,5 +43,3 @@ class PoaApp extends React.Component<PoaAppProps> {
     );
   }
 }
-
-export default PoaComponent()(PoaApp);

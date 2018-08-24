@@ -27,7 +27,7 @@ export enum PoaRouterType {
 }
 
 export interface PoaRouterConfig {
-  type: PoaRouterType;
+  type?: PoaRouterType;
   context?: Function;
   routes: PoaRoutesConfig[];
 }
@@ -75,6 +75,15 @@ export interface PoaAppBootConfig {
   };
 }
 
+interface ConfigureI18NextHook {
+  i18next: i18n;
+  t: TranslationFunction;
+}
+
+interface ConfigureAppInstanceHook {
+  poaApp: JSX.Element;
+}
+
 export interface PoaAppConfig {
   react: PoaReactConfig;
   router: PoaRouterConfig;
@@ -84,21 +93,8 @@ export interface PoaAppConfig {
   env: any;
 
   hooks: {
-    configureI18Next: (
-      {
-        i18next,
-        t
-      }: {
-        i18next: i18n;
-        t: TranslationFunction;
-      }
-    ) => Promise<any>;
-    configureAppInstance: (
-      {
-        poaAppInstance
-      }: {
-        poaAppInstance: any;
-      }
-    ) => Promise<any>;
+    configureI18Next: ({ i18next, t }: ConfigureI18NextHook) => Promise<any>;
+    // prettier-ignore
+    configureAppInstance: ({ poaApp }: ConfigureAppInstanceHook) => Promise<JSX.Element | void> | JSX.Element | void ;
   };
 }

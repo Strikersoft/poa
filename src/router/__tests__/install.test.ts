@@ -5,11 +5,7 @@ import * as mobxlittlerouterreact from 'mobx-little-router-react';
 describe('installRouter', () => {
   it('calls install function from mobx-little-router-react', () => {
     const poaDefaultConfig = createDefaultConfig();
-    const injectedData = {};
-    const config: MobxLittleRouterConfig = createRouterInstallConfig(
-      poaDefaultConfig,
-      injectedData
-    );
+    const config: MobxLittleRouterConfig = createRouterInstallConfig(poaDefaultConfig);
 
     spyOn(mobxlittlerouterreact, 'install');
 

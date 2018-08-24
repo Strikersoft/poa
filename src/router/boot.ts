@@ -14,11 +14,8 @@ export interface RouterBootResult {
   history: History | MemoryHistory;
 }
 
-export async function boot(
-  config: PoaAppConfig,
-  injectionData: any = {}
-): Promise<RouterBootResult> {
-  const routerConfig = createRouterInstallConfig(config, injectionData);
+export async function boot(config: PoaAppConfig): Promise<RouterBootResult> {
+  const routerConfig = createRouterInstallConfig(config);
 
   installedRouter = installRouter(routerConfig);
   await startRouter(installedRouter);

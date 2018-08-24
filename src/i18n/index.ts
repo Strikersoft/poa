@@ -1,1 +1,1 @@
-export * from './boot';
+export { t } from './translator';
