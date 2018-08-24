@@ -21,7 +21,7 @@ export async function boot(config: PoaAppConfig): Promise<RouterBootResult> {
   await startRouter(installedRouter);
 
   // inject router to all registered components
-  ComponentsInjector.injectPropertyToAllComponents((component: any) => {
+  ComponentsInjector.injectPropertyToAllComponents((component: Function) => {
     component.prototype.router = getRouter();
   });
 

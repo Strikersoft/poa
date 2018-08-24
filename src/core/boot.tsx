@@ -13,6 +13,10 @@ import { PoaAppConfig } from '.';
 import PoaAppState from './global-state';
 
 export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig> {
+  if (PoaAppState.booted) {
+    PoaAppState.reset();
+  }
+
   const config = createDefaultConfig(userConfig);
 
   if (process.env.NODE_ENV === 'development') {

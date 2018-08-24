@@ -1,6 +1,6 @@
 {
   "name": "poa",
-  "version": "6.0.0-beta19",
+  "version": "6.0.0-beta20",
   "license": "MIT",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -24,10 +24,10 @@
     "history": "4.7.2",
     "i18next": "11.3.5",
     "mobx": "4.3.1",
-    "mobx-little-router": "2.0.0-4",
-    "mobx-little-router-react": "2.0.0-4",
+    "mobx-little-router": "2.0.0-20",
+    "mobx-little-router-react": "2.0.0-20",
     "mobx-react": "5.2.3",
-    "raven-js": "^3.26.3",
+    "raven-js": "3.26.4",
     "tslib": "1.9.3"
   },
   "devDependencies": {

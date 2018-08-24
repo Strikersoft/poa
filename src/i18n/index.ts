@@ -1,1 +1,1 @@
-export { t } from './translator';
+export { t, TranslationFunction } from './translator';

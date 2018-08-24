@@ -22,5 +22,6 @@ module.exports = {
     '<rootDir>/utils'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupTestFrameworkScriptFile: '<rootDir>/src/__tests__/jest-setup.test.ts',
   collectCoverage: true
 };

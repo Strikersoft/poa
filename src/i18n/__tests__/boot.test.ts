@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as i18next from 'i18next';
 import { boot } from '../boot';
+import { TranslationFunction } from '../';
 import * as translator from '../translator';
 import { createDefaultConfig } from '../../core/config';
 import { ComponentsInjector } from '../../core/repository';
@@ -56,24 +57,25 @@ describe(`I18N — Boot`, () => {
     ComponentsInjector.registry = [];
   });
 
-  // TODO: restore
-  // it(`can add ability to declare internal 't' function`, async () => {
-  //   @PoaComponent()
-  //   class MyComponent extends React.Component {
-  //     render() {
-  //       return this.t('1');
-  //     }
-  //   }
-  //   const defaultConfig = createDefaultConfig();
-  //   ComponentsInjector.addComponentToRegistry(MyComponent);
+  it(`can add ability to declare internal 't' function`, async () => {
+    @PoaComponent()
+    class MyComponent extends React.Component {
+      t: TranslationFunction;
 
-  //   await boot(defaultConfig);
+      render() {
+        return this.t('1');
+      }
+    }
+    const defaultConfig = createDefaultConfig();
+    ComponentsInjector.addComponentToRegistry(MyComponent);
 
-  //   expect(MyComponent.prototype).toHaveProperty('t');
-  //   expect(typeof MyComponent.prototype.t).toBe('function');
+    await boot(defaultConfig);
 
-  //   ComponentsInjector.registry = [];
-  // });
+    expect(MyComponent.prototype).toHaveProperty('t');
+    expect(typeof MyComponent.prototype.t).toBe('function');
+
+    ComponentsInjector.registry = [];
+  });
 
   it(`uses tNamespaces property from component prototype to create translator`, async () => {
     const Component = () => {};

@@ -9,10 +9,6 @@ export interface PoaI18NextBootResult {
   i18next: i18next.i18n;
 }
 
-// export function t(value: string | string[], opts: i18next.TranslationOptions = {}) {
-//   return currentT(value, opts);
-// }
-
 export function boot(config: PoaAppConfig): Promise<PoaI18NextBootResult> {
   return new Promise((resolve, reject) => {
     i18next.init(config.i18n, (error, t) => {
