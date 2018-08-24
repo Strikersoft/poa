@@ -28,7 +28,7 @@ async function fetchPoaNpmMetadata() {
   nscript(releaseBeta);
 }
 
-function releaseBeta(shell: any, echo: any, npm: any, yarn: any, git: any) {
+function releaseBeta(shell: any, echo: any, yarn: any, git: any) {
   if (latestBetaVersion === -1) {
     throw new Error('Incorrect processing.');
   }
@@ -67,7 +67,7 @@ function releaseBeta(shell: any, echo: any, npm: any, yarn: any, git: any) {
   shell.write('package.json', JSON.stringify(pkg, null, 2));
   yarn('fmt');
 
-  npm('publish');
+  yarn('publish');
   yarn('clean');
 
   echo(`Commiting changes...`);
