@@ -1,6 +1,6 @@
 {
   "name": "poa",
-  "version": "6.0.0-beta21",
+  "version": "6.0.0-beta22",
   "license": "MIT",
   "main": "./index.js",
   "types": "./index.d.ts",
