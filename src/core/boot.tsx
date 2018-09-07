@@ -58,14 +58,14 @@ export async function boot(userConfig?: PoaAppBootConfig): Promise<PoaAppConfig>
     poaApp: AppInstance
   });
 
+  PoaAppState.markAsBooted();
+
   // when end-user provides new root component -> use it!
   if (NewAppInstance) {
     await render(NewAppInstance, config.react.htmlNode);
   } else {
     await render(AppInstance, config.react.htmlNode);
   }
-
-  PoaAppState.markAsBooted();
 
   return config;
 }
