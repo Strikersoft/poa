@@ -1,6 +1,7 @@
 import { InitOptions, i18n, TranslationFunction } from 'i18next';
 import { IReactComponent } from 'mobx-react';
 import { RavenOptions } from 'raven-js';
+import { Location } from 'history';
 
 export interface Route {
   context: any;
@@ -9,6 +10,7 @@ export interface Route {
 
 export interface Navigation {
   redirectTo: (path: string) => any;
+  to: Location;
   [key: string]: any;
 }
 
